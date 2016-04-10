@@ -17,7 +17,7 @@ public class UserDaoImpl implements UserDao {
         User user = new User();
 
         try {
-            String template = "select * from users where id=" + id + ";";
+            String template = "SELECT * FROM users WHERE id=" + id + ";";
 
             Connection connection = DataSource.getInstance().getConnection();
             Statement statement = connection.createStatement();
@@ -51,7 +51,7 @@ public class UserDaoImpl implements UserDao {
         try {
 
             Connection connection = DataSource.getInstance().getConnection();
-            String template = "select * from users where username='" + username + "';";
+            String template = "SELECT * FROM users WHERE username='" + username + "';";
 
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(template);

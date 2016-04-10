@@ -15,23 +15,20 @@ public class AddServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		String title = request.getParameter("title");
-		String priceString = request.getParameter("price");
+		String country = request.getParameter("country");
 		String link = request.getParameter("link");
 
-		if (title.equalsIgnoreCase("")) {
+		if (title.equalsIgnoreCase("") ) {
 			response.sendRedirect("/webproject/index");
-		} else if (priceString.equalsIgnoreCase("")) {
+		} else if (country.equalsIgnoreCase("")) {
+			response.sendRedirect("/webproject/index");
+		} else if (link.equalsIgnoreCase("")) {
 			response.sendRedirect("/webproject/index");
 		} else {
 
-			int price = 0;
-			try {
-				price = Integer.parseInt(priceString);
-			} catch (NumberFormatException e) {
 
-			}
 			PeriodicalDaoImpl pdi = new PeriodicalDaoImpl();
-			pdi.addPeriodical(title, price, link);
+			pdi.addPeriodical(title, country, link);
 
 			response.sendRedirect("/webproject/index");
 		}

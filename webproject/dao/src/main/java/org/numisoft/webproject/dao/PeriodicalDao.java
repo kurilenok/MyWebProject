@@ -10,7 +10,7 @@ public interface PeriodicalDao {
 
 	List<Periodical> getAllPeriodicals();
 
-	void addPeriodical(String title, int price, String link);
+	void addPeriodical(String title, String country, String link);
 
 	void deletePeriodical(int id);
 

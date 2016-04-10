@@ -15,78 +15,82 @@ import java.util.List;
 
 public class SubscriptionDaoImpl implements SubscriptionDao {
 
-	public List<Subscription> getSubscriptionByUser(User user) {
+    public List<Subscription> getSubscriptionByUser(User user) {
 
-		List<Subscription> subscriptions = new ArrayList<Subscription>();
+        List<Subscription> subscriptions = new ArrayList<Subscription>();
 
-		String template = "select subscriptions.id, subscriptions.date, "
-				+ "users.first_name, users.last_name, periodicals.title " + "from subscriptions "
-				+ "join periodicals on subscriptions.periodical_id=periodicals.id "
-				+ "join users on subscriptions.user_id=users.id where users.last_name='"
-				+ user.getLast_name() + "';";
+        String template = "SELECT collections.id, banknotes.title, " +
+                "countries.country, banknotes.link " +
+                "FROM collections " +
+                "JOIN banknotes ON collections.banknote_id=banknotes.id " +
+                "JOIN users ON collections.user_id=users.id " +
+                "JOIN countries ON banknotes.country_id=countries.id " +
+                "WHERE users.id='" + user.getId() + "' " +
+                "ORDER BY countries.country, " +
+                "CAST(SUBSTRING(title, 1, LOCATE(' ', title)) AS UNSIGNED);";
 
-		try {
-			Connection connection = DataSource.getInstance().getConnection();
-			Statement statement = connection.createStatement();
-			ResultSet result = statement.executeQuery(template);
+        try {
+            Connection connection = DataSource.getInstance().getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(template);
 
-			while (result.next()) {
-				Subscription subscription = new Subscription();
-				subscription.setId(result.getInt("id"));
-				subscription.setDate(result.getString("date"));
-				subscription.setFirst_name(result.getString("first_name"));
-				subscription.setLast_name(result.getString("last_name"));
-				subscription.setTitle(result.getString("title"));
-				subscriptions.add(subscription);
-			}
+            while (result.next()) {
+                Subscription subscription = new Subscription();
+                subscription.setId(result.getInt("id"));
+                subscription.setTitle(result.getString("title"));
+                subscription.setCountry(result.getString("country"));
+                subscription.setLink(result.getString("link"));
+                subscriptions.add(subscription);
+            }
 
-			result.close();
-			statement.close();
-			connection.close();
+            result.close();
+            statement.close();
+            connection.close();
 
-		} catch (SQLException|IOException|PropertyVetoException e) {
-			e.printStackTrace();
-		}
+        } catch (SQLException | IOException | PropertyVetoException e) {
+            e.printStackTrace();
+        }
 
-		return subscriptions;
+        return subscriptions;
 
-	}
+    }
 
-	public void addSubscription(int user_id, int periodical_id) {
+    public void addSubscription(int user_id, int periodical_id) {
 
-		String template = "insert into subscriptions (date, user_id, periodical_id) values ('2015-12-11',"
-				+ user_id + "," + periodical_id + ");";
+        String template = "INSERT INTO collections (date, user_id, banknote_id) "
+                + "VALUES ('2015-12-11',"
+                + user_id + "," + periodical_id + ");";
 
-		try {
-			Connection connection = DataSource.getInstance().getConnection();
-			Statement statement = connection.createStatement();
-			statement.executeUpdate(template);
+        try {
+            Connection connection = DataSource.getInstance().getConnection();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(template);
 
-			statement.close();
-			connection.close();
+            statement.close();
+            connection.close();
 
-		} catch (SQLException|IOException|PropertyVetoException e) {
-			e.printStackTrace();
-		}
+        } catch (SQLException | IOException | PropertyVetoException e) {
+            e.printStackTrace();
+        }
 
-	}
+    }
 
-	public void removeSubscription(int id) {
+    public void removeSubscription(int id) {
 
-		String template = "DELETE FROM subscriptions WHERE id=" + id + ";";
+        String template = "DELETE FROM collections WHERE id=" + id + ";";
 
-		try {
-			Connection connection = DataSource.getInstance().getConnection();
-			Statement statement = connection.createStatement();
-			statement.executeUpdate(template);
+        try {
+            Connection connection = DataSource.getInstance().getConnection();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(template);
 
-			statement.close();
-			connection.close();
+            statement.close();
+            connection.close();
 
-		} catch (SQLException|IOException|PropertyVetoException e) {
-			e.printStackTrace();
-		}
+        } catch (SQLException | IOException | PropertyVetoException e) {
+            e.printStackTrace();
+        }
 
-	}
+    }
 
 }

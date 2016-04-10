@@ -4,20 +4,22 @@
 
 <html>
 <body>
+<a href="/webproject/logout">Log out</a>
+<br/>
+
 <h4>
     <c:out value="${sessionScope.user.getFirst_name()}"/>
     <c:out value=" "/>
     <c:out value="${sessionScope.user.getLast_name()}"/>
     <c:out value=" "/>
-    (<c:out value="${sessionScope.user.getUsername()}"/>), you are currently subscribed to:
+    (<c:out value="${sessionScope.user.getUsername()}"/>), here is your collection:
 </h4>
 <table border="1px">
     <tr bgcolor="#ccc">
         <th>Id</th>
-        <th>Date</th>
-        <th>First Name</th>
-        <th>Last Name</th>
         <th>Title</th>
+        <th>Country</th>
+        <th>Image</th>
         <th></th>
     </tr>
     <c:set var="i" scope="page" value="0"/>
@@ -25,21 +27,21 @@
         <tr>
                 <c:set var="i" value="${i + 1}" scope="page"/>
             <td><c:out value="${i}"/>
-            <td><c:out value="${s.getDate()}"/>
-            <td><c:out value="${s.getFirst_name()}"/>
-            <td><c:out value="${s.getLast_name()}"/>
             <td><c:out value="${s.getTitle()}"/>
-            <td><a href="/webproject/unsubscribe?id=${s.getId()}">Unsubscribe</a></td>
+            <td><c:out value="${s.getCountry()}"/>
+            <td><img src="${s.getLink()}" alt="${s.getTitle()}" width="250"></td>
+            <td><a href="/webproject/unsubscribe?id=${s.getId()}">Delete</a></td>
         <tr/>
     </c:forEach>
 </table>
 
-<h4>Wanna subscribe to more periodicals?</h4>
+<h4>Fill free to add these banknotes to your collection:</h4>
 <table border="1px">
     <tr bgcolor="#ccc">
         <th>Id</th>
         <th>Title</th>
-        <th>Price</th>
+        <th>Country</th>
+        <th>Image</th>
         <th></th>
     </tr>
     <c:set var="j" scope="page" value="0"/>
@@ -48,16 +50,15 @@
                 <c:set var="j" value="${j + 1}" scope="page"/>
             <td><c:out value="${j}"/>
             <td><c:out value="${p.getTitle()}"/>
-            <td><c:out value="${p.getPrice()}"/>
-            <td><a href="/webproject/subscribe?id=${p.getId()}">Subscribe</a></td>
+            <td><c:out value="${p.getCountry()}"/>
+            <td><img src="${p.getLink()}" alt="${p.getTitle()}" width="250"></td>
+            <td><a href="/webproject/subscribe?id=${p.getId()}">Add</a></td>
         <tr/>
     </c:forEach>
 </table>
 
 <br/>
 <br/>
-
-<a href="/webproject/logout">Log out</a>
 
 </body>
 </html>

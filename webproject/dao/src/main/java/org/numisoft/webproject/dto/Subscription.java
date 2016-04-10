@@ -3,22 +3,13 @@ package org.numisoft.webproject.dto;
 public class Subscription {
 
 	private int id;
-	private String date;
 	private int user_id;
-	private String first_name;
-	private String last_name;
 	private int periodical_id;
 	private String title;
+	private String link;
+	private String country;
 
 	public Subscription() {
-	}
-
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
 	}
 
 	public int getUser_id() {
@@ -45,22 +36,6 @@ public class Subscription {
 		this.id = id;
 	}
 
-	public String getFirst_name() {
-		return first_name;
-	}
-
-	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
-	}
-
-	public String getLast_name() {
-		return last_name;
-	}
-
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
-	}
-
 	public String getTitle() {
 		return title;
 	}
@@ -69,5 +44,19 @@ public class Subscription {
 		this.title = title;
 	}
 
+	public String getCountry() {
+		return country;
+	}
 
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
 }

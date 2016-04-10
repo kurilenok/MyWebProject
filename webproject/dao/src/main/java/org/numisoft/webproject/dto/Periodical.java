@@ -3,10 +3,9 @@ package org.numisoft.webproject.dto;
 public class Periodical {
 
 	private int id;
+	private String country;
 	private String title;
-	private int price;
 	private String link;
-
 	public Periodical() {
 	}
 
@@ -18,20 +17,20 @@ public class Periodical {
 		this.id = id;
 	}
 
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
 	public String getTitle() {
 		return title;
 	}
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
 	}
 
 	public String getLink() {
