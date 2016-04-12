@@ -1,9 +1,9 @@
 package org.numisoft.webproject.services;
 
-import org.numisoft.webproject.dao.PeriodicalDaoImpl;
-import org.numisoft.webproject.dao.SubscriptionDaoImpl;
-import org.numisoft.webproject.dto.Periodical;
-import org.numisoft.webproject.dto.Subscription;
+import org.numisoft.webproject.dao.BanknoteDaoImpl;
+import org.numisoft.webproject.dao.CollectibleDaoImpl;
+import org.numisoft.webproject.dto.Banknote;
+import org.numisoft.webproject.dto.Collectible;
 import org.numisoft.webproject.dto.User;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,34 +16,33 @@ import java.util.List;
 
 public class IndexServlet extends HttpServlet {
 
-	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		PeriodicalDaoImpl pdi = new PeriodicalDaoImpl();
-		List<Periodical> ps = pdi.getAllPeriodicals();
-		request.setAttribute("periodicals", ps);
+        BanknoteDaoImpl bdi = BanknoteDaoImpl.getInstance();
+        List<Banknote> banknotes = bdi.getAllBanknotes();
 
-		User user = new User();
+        request.setAttribute("banknotes", banknotes);
 
-		HttpSession session = request.getSession();
-		user = (User) session.getAttribute("user");
-		session.setAttribute("user_id", user.getId());
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        session.setAttribute("user_id", user.getId());
 
-		if (user.getRole_id() == 1) {
+        if (user.getRole_id() == 1) {
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("admin.jsp");
-			dispatcher.forward(request, response);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("admin.jsp");
+            dispatcher.forward(request, response);
 
-		} else {
+        } else {
 
-			SubscriptionDaoImpl sdi = new SubscriptionDaoImpl();
-			List<Subscription> subscriptions = sdi.getSubscriptionByUser(user);
-			request.setAttribute("subscriptions", subscriptions);
+            CollectibleDaoImpl cdi = CollectibleDaoImpl.getInstance();
+            List<Collectible> collectibles = cdi.getCollectiblesByUser(user);
+            request.setAttribute("collectibles", collectibles);
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("subscriptions.jsp");
-			dispatcher.forward(request, response);
-		}
+            RequestDispatcher dispatcher = request.getRequestDispatcher("collectibles.jsp");
+            dispatcher.forward(request, response);
+        }
 
-	}
+    }
 }

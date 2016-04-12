@@ -52,13 +52,13 @@
         <th></th>
     </tr>
     <c:set var="i" scope="page" value="0"/>
-    <c:forEach var="p" items="${requestScope.periodicals}">
+    <c:forEach var="p" items="${requestScope.banknotes}">
         <tr>
                 <c:set var="i" value="${i + 1}" scope="page"/>
             <td><c:out value="${i}"/>
             <td><c:out value="${p.getCountry()}"/>
             <td><c:out value="${p.getTitle()}"/>
-            <td><img src="${p.getLink()}" alt="${p.getTitle()}" width="250"></td>
+            <td><img src="${p.getLink()}" alt="Image for ${p.getTitle()}" width="250"></td>
             <td><a href="/webproject/delete?id=${p.getId()}">Delete</a></td>
         <tr/>
     </c:forEach>

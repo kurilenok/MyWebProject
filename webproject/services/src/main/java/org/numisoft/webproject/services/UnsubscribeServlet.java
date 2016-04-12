@@ -1,6 +1,6 @@
 package org.numisoft.webproject.services;
 
-import org.numisoft.webproject.dao.SubscriptionDaoImpl;
+import org.numisoft.webproject.dao.CollectibleDaoImpl;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +15,8 @@ public class UnsubscribeServlet extends HttpServlet {
 
 		int id = Integer.parseInt(request.getParameter("id"));
 
-		SubscriptionDaoImpl sdi = new SubscriptionDaoImpl();
-		sdi.removeSubscription(id);
+		CollectibleDaoImpl cdi = CollectibleDaoImpl.getInstance();
+		cdi.removeCollectible(id);
 
 		response.sendRedirect("/webproject/index");
 

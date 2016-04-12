@@ -1,23 +1,66 @@
 package org.numisoft.webproject.dao;
 
-import org.numisoft.webproject.dto.Periodical;
+import org.numisoft.webproject.dto.Banknote;
 import org.numisoft.webproject.utils.DataSource;
-
 import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PeriodicalDaoImpl implements PeriodicalDao {
+public class BanknoteDaoImpl implements BanknoteDao {
 
-    public Periodical getPeriodicalByid(int id) {
-        return null;
+    private static BanknoteDaoImpl bdi;
+
+    private BanknoteDaoImpl() {
     }
 
-    public List<Periodical> getAllPeriodicals() {
+    public static BanknoteDaoImpl getInstance() {
+        if (bdi == null) {
+            bdi = new BanknoteDaoImpl();
+            return bdi;
+        } else {
+            return bdi;
+        }
+    }
 
-        List<Periodical> periodicals = new ArrayList<Periodical>();
+    public Banknote getBanknoteByid(int id) {
+
+        Banknote banknote = new Banknote();
+
+        try {
+            String template = "SELECT banknotes.id, banknotes.title, " +
+                    "banknotes.link, countries.country " +
+                    "FROM banknotes " +
+                    "JOIN countries ON banknotes.country_id = countries.id " +
+                    "WHERE banknotes.id =" + id + ";";
+
+            Connection connection = DataSource.getInstance().getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(template);
+
+            while (result.next()) {
+                banknote.setId(result.getInt("id"));
+                banknote.setTitle(result.getString("title"));
+                banknote.setCountry(result.getString("country"));
+                banknote.setLink(result.getString("link"));
+            }
+
+            result.close();
+            statement.close();
+            connection.close();
+
+        } catch (SQLException | IOException | PropertyVetoException e) {
+            e.printStackTrace();
+        }
+
+        return banknote;
+
+    }
+
+    public List<Banknote> getAllBanknotes() {
+
+        List<Banknote> banknotes = new ArrayList<Banknote>();
 
         try {
             String template = "SELECT banknotes.id, banknotes.title, " +
@@ -32,12 +75,12 @@ public class PeriodicalDaoImpl implements PeriodicalDao {
             ResultSet result = statement.executeQuery(template);
 
             while (result.next()) {
-                Periodical periodical = new Periodical();
-                periodical.setId(result.getInt("id"));
-                periodical.setTitle(result.getString("title"));
-                periodical.setCountry(result.getString("country"));
-                periodical.setLink(result.getString("link"));
-                periodicals.add(periodical);
+                Banknote banknote = new Banknote();
+                banknote.setId(result.getInt("id"));
+                banknote.setTitle(result.getString("title"));
+                banknote.setCountry(result.getString("country"));
+                banknote.setLink(result.getString("link"));
+                banknotes.add(banknote);
             }
 
             result.close();
@@ -48,11 +91,11 @@ public class PeriodicalDaoImpl implements PeriodicalDao {
             e.printStackTrace();
         }
 
-        return periodicals;
+        return banknotes;
     }
 
 
-    public void addPeriodical(String title, String country, String link) {
+    public void addBanknote(String title, String country, String link) {
 
         try {
             String template = "INSERT INTO countries (country) VALUES ('" + country + "');";
@@ -82,7 +125,7 @@ public class PeriodicalDaoImpl implements PeriodicalDao {
     }
 
 
-    public void deletePeriodical(int id) {
+    public void deleteBanknote(int id) {
 
         try {
             String template = "DELETE FROM banknotes WHERE id=" + id + ";";

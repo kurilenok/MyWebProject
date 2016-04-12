@@ -1,6 +1,7 @@
 package org.numisoft.webproject.services;
 
-import org.numisoft.webproject.dao.PeriodicalDaoImpl;
+import org.numisoft.webproject.dao.BanknoteDaoImpl;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -9,17 +10,17 @@ import java.io.IOException;
 
 public class DeleteServlet extends HttpServlet {
 
-	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		int id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("id"));
 
-		PeriodicalDaoImpl pdi = new PeriodicalDaoImpl();
-		pdi.deletePeriodical(id);
+        BanknoteDaoImpl bdi = BanknoteDaoImpl.getInstance();
+        bdi.deleteBanknote(id);
 
-		response.sendRedirect("/webproject/index");
+        response.sendRedirect("/webproject/index");
 
-	}
+    }
 
 }

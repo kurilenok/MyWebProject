@@ -1,9 +1,8 @@
 package org.numisoft.webproject.dao;
 
-import org.numisoft.webproject.dto.Subscription;
+import org.numisoft.webproject.dto.Collectible;
 import org.numisoft.webproject.dto.User;
 import org.numisoft.webproject.utils.DataSource;
-
 import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,11 +12,26 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubscriptionDaoImpl implements SubscriptionDao {
+public class CollectibleDaoImpl implements CollectibleDao {
 
-    public List<Subscription> getSubscriptionByUser(User user) {
+    private static CollectibleDaoImpl cdi;
 
-        List<Subscription> subscriptions = new ArrayList<Subscription>();
+    private CollectibleDaoImpl() {
+    }
+
+    public static CollectibleDaoImpl getInstance() {
+        if (cdi == null) {
+            cdi = new CollectibleDaoImpl();
+            return cdi;
+        } else {
+            return cdi;
+        }
+    }
+
+
+    public List<Collectible> getCollectiblesByUser(User user) {
+
+        List<Collectible> collectibles = new ArrayList<Collectible>();
 
         String template = "SELECT collections.id, banknotes.title, " +
                 "countries.country, banknotes.link " +
@@ -35,12 +49,12 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
             ResultSet result = statement.executeQuery(template);
 
             while (result.next()) {
-                Subscription subscription = new Subscription();
-                subscription.setId(result.getInt("id"));
-                subscription.setTitle(result.getString("title"));
-                subscription.setCountry(result.getString("country"));
-                subscription.setLink(result.getString("link"));
-                subscriptions.add(subscription);
+                Collectible collectible = new Collectible();
+                collectible.setId(result.getInt("id"));
+                collectible.setTitle(result.getString("title"));
+                collectible.setCountry(result.getString("country"));
+                collectible.setLink(result.getString("link"));
+                collectibles.add(collectible);
             }
 
             result.close();
@@ -51,15 +65,14 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
             e.printStackTrace();
         }
 
-        return subscriptions;
+        return collectibles;
 
     }
 
-    public void addSubscription(int user_id, int periodical_id) {
+    public void addCollectible(int user_id, int banknote_id) {
 
-        String template = "INSERT INTO collections (date, user_id, banknote_id) "
-                + "VALUES ('2015-12-11',"
-                + user_id + "," + periodical_id + ");";
+        String template = "INSERT INTO collections (user_id, banknote_id) "
+                + "VALUES (" + user_id + ", " + banknote_id + ");";
 
         try {
             Connection connection = DataSource.getInstance().getConnection();
@@ -75,7 +88,7 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
 
     }
 
-    public void removeSubscription(int id) {
+    public void removeCollectible(int id) {
 
         String template = "DELETE FROM collections WHERE id=" + id + ";";
 

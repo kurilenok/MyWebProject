@@ -1,12 +1,12 @@
 package org.numisoft.webproject.dto;
 
-public class Periodical {
+public class Banknote {
 
 	private int id;
 	private String country;
 	private String title;
 	private String link;
-	public Periodical() {
+	public Banknote() {
 	}
 
 	public int getId() {

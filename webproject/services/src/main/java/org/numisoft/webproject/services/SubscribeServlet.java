@@ -1,6 +1,6 @@
 package org.numisoft.webproject.services;
 
-import org.numisoft.webproject.dao.SubscriptionDaoImpl;
+import org.numisoft.webproject.dao.CollectibleDaoImpl;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +19,8 @@ public class SubscribeServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		int user_id = (Integer) session.getAttribute("user_id");
 
-		SubscriptionDaoImpl sdi = new SubscriptionDaoImpl();
-		sdi.addSubscription(user_id, id);
+		CollectibleDaoImpl sdi = CollectibleDaoImpl.getInstance();
+		sdi.addCollectible(user_id, id);
 
 		response.sendRedirect("/webproject/index");
 

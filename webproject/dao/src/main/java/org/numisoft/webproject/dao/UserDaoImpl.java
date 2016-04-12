@@ -2,7 +2,6 @@ package org.numisoft.webproject.dao;
 
 import org.numisoft.webproject.dto.User;
 import org.numisoft.webproject.utils.DataSource;
-
 import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.sql.Connection;
@@ -11,6 +10,21 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class UserDaoImpl implements UserDao {
+
+    private static UserDaoImpl udi;
+
+    private UserDaoImpl() {}
+
+
+    public static UserDaoImpl getInstance() {
+        if (udi == null) {
+            udi = new UserDaoImpl();
+            return udi;
+        } else {
+            return udi;
+        }
+    }
+
 
     public User getUserById(int id) {
 

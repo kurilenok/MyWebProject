@@ -1,6 +1,6 @@
 package org.numisoft.webproject.dto;
 
-public class Subscription {
+public class Collectible {
 
 	private int id;
 	private int user_id;
@@ -9,7 +9,7 @@ public class Subscription {
 	private String link;
 	private String country;
 
-	public Subscription() {
+	public Collectible() {
 	}
 
 	public int getUser_id() {

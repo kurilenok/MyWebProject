@@ -12,7 +12,7 @@
     <c:out value=" "/>
     <c:out value="${sessionScope.user.getLast_name()}"/>
     <c:out value=" "/>
-    (<c:out value="${sessionScope.user.getUsername()}"/>), here is your collection:
+    (<c:out value="${sessionScope.user.getUsername()}"/>), here is your collectible:
 </h4>
 <table border="1px">
     <tr bgcolor="#ccc">
@@ -23,19 +23,19 @@
         <th></th>
     </tr>
     <c:set var="i" scope="page" value="0"/>
-    <c:forEach var="s" items="${requestScope.subscriptions}">
+    <c:forEach var="s" items="${requestScope.collectibles}">
         <tr>
                 <c:set var="i" value="${i + 1}" scope="page"/>
             <td><c:out value="${i}"/>
             <td><c:out value="${s.getTitle()}"/>
             <td><c:out value="${s.getCountry()}"/>
-            <td><img src="${s.getLink()}" alt="${s.getTitle()}" width="250"></td>
+            <td><img src="${s.getLink()}" alt="Image for ${s.getTitle()}" width="250"></td>
             <td><a href="/webproject/unsubscribe?id=${s.getId()}">Delete</a></td>
         <tr/>
     </c:forEach>
 </table>
 
-<h4>Fill free to add these banknotes to your collection:</h4>
+<h4>Fill free to add these banknotes to your collectible:</h4>
 <table border="1px">
     <tr bgcolor="#ccc">
         <th>Id</th>
@@ -45,13 +45,13 @@
         <th></th>
     </tr>
     <c:set var="j" scope="page" value="0"/>
-    <c:forEach var="p" items="${requestScope.periodicals}">
+    <c:forEach var="p" items="${requestScope.banknotes}">
         <tr>
                 <c:set var="j" value="${j + 1}" scope="page"/>
             <td><c:out value="${j}"/>
             <td><c:out value="${p.getTitle()}"/>
             <td><c:out value="${p.getCountry()}"/>
-            <td><img src="${p.getLink()}" alt="${p.getTitle()}" width="250"></td>
+            <td><img src="${p.getLink()}" alt="Image for ${p.getTitle()}" width="250"></td>
             <td><a href="/webproject/subscribe?id=${p.getId()}">Add</a></td>
         <tr/>
     </c:forEach>

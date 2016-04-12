@@ -18,10 +18,9 @@ public class LoginServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 
-		UserDaoImpl udi = new UserDaoImpl();
+		UserDaoImpl udi = UserDaoImpl.getInstance();
 
 		int id = udi.authenticate(username, password);
-//		int id = udi.authenticate(DBHelper.getConnection(), username, password);
 
 		if (id > 0) {
 
