@@ -1,21 +1,20 @@
-package org.numisoft.webproject.services;
+package org.numisoft.webproject.web;
 
 
 import javax.servlet.*;
-import javax.servlet.Filter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.logging.*;
 
 /**
- * Created by kukolka on 06.04.16.
+ * AuthenticationFilter checks if Session contains User
+ * If there is no User in Session Filter redirects to Login page
+ *
  */
 public class AuthenticationFilter implements Filter {
 
     public void init(FilterConfig filterConfig) throws ServletException {
-
     }
 
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

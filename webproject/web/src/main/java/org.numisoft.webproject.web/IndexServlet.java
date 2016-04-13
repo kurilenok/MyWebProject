@@ -1,10 +1,8 @@
-package org.numisoft.webproject.services;
+package org.numisoft.webproject.web;
 
-import org.numisoft.webproject.dao.BanknoteDaoImpl;
-import org.numisoft.webproject.dao.CollectibleDaoImpl;
-import org.numisoft.webproject.dto.Banknote;
-import org.numisoft.webproject.dto.Collectible;
 import org.numisoft.webproject.dto.User;
+import org.numisoft.webproject.services.BanknoteService;
+import org.numisoft.webproject.services.CollectibleService;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
+
+/**
+ * IndexServlet sorts Users (Admin or non-Admin User)
+ * and redirects Admin to catalog.jsp or non-Admin to collectible.jsp
+ *
+ * */
+
 
 public class IndexServlet extends HttpServlet {
 
@@ -20,10 +24,8 @@ public class IndexServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        BanknoteDaoImpl bdi = BanknoteDaoImpl.getInstance();
-        List<Banknote> banknotes = bdi.getAllBanknotes();
-
-        request.setAttribute("banknotes", banknotes);
+        BanknoteService banknoteService = BanknoteService.getInstance();
+        request.setAttribute("banknotes", banknoteService.getAllBanknotes());
 
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
@@ -31,16 +33,15 @@ public class IndexServlet extends HttpServlet {
 
         if (user.getRole_id() == 1) {
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("admin.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/catalog.jsp");
             dispatcher.forward(request, response);
 
         } else {
 
-            CollectibleDaoImpl cdi = CollectibleDaoImpl.getInstance();
-            List<Collectible> collectibles = cdi.getCollectiblesByUser(user);
-            request.setAttribute("collectibles", collectibles);
+            CollectibleService collectibleService = CollectibleService.getInstance();
+            request.setAttribute("collectibles", collectibleService.getCollectiblesByUser(user));
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("collectibles.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/collection.jsp");
             dispatcher.forward(request, response);
         }
 

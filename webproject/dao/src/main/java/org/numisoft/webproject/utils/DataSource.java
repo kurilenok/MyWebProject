@@ -1,25 +1,30 @@
 package org.numisoft.webproject.utils;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+
 import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 /**
- * Created by kukolka on 04.04.16.
+ * DataSource provides connection to Database
+ * Database credentials are stored in /dao/src/main/resources/credentials.properties
+ *
  */
 public class DataSource {
 
     private static DataSource datasource;
     private ComboPooledDataSource cpds;
+    ResourceBundle resourceBundle = ResourceBundle.getBundle("credentials");
 
     private DataSource() throws IOException, SQLException, PropertyVetoException {
         cpds = new ComboPooledDataSource();
-        cpds.setDriverClass("com.mysql.jdbc.Driver"); //loads the jdbc driver
-        cpds.setJdbcUrl("jdbc:mysql://localhost:3306/periodicals");
-        cpds.setUser("root");
-        cpds.setPassword("root");
+        cpds.setDriverClass("com.mysql.jdbc.Driver");
+        cpds.setJdbcUrl(resourceBundle.getString("url"));
+        cpds.setUser(resourceBundle.getString("user"));
+        cpds.setPassword(resourceBundle.getString("password"));
     }
 
     public static DataSource getInstance() throws IOException, SQLException, PropertyVetoException {

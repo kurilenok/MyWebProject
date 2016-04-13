@@ -1,5 +1,11 @@
 package org.numisoft.webproject.dto;
 
+/**
+ * Collectible = item in User Collection
+ *
+ * */
+
+
 public class Collectible {
 
 	private int id;

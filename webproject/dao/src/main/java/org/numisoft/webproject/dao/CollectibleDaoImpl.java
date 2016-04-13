@@ -12,6 +12,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of CollectibleDao
+ *
+ * */
+
 public class CollectibleDaoImpl implements CollectibleDao {
 
     private static CollectibleDaoImpl cdi;
@@ -88,7 +93,7 @@ public class CollectibleDaoImpl implements CollectibleDao {
 
     }
 
-    public void removeCollectible(int id) {
+    public void deleteCollectible(int id) {
 
         String template = "DELETE FROM collections WHERE id=" + id + ";";
 

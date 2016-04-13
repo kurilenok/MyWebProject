@@ -12,7 +12,7 @@
     <c:out value=" "/>
     <c:out value="${sessionScope.user.getLast_name()}"/>
     <c:out value=" "/>
-    (<c:out value="${sessionScope.user.getUsername()}"/>), here is your collectible:
+    (<c:out value="${sessionScope.user.getUsername()}"/>), here is your Collection:
 </h4>
 <table border="1px">
     <tr bgcolor="#ccc">
@@ -35,7 +35,7 @@
     </c:forEach>
 </table>
 
-<h4>Fill free to add these banknotes to your collectible:</h4>
+<h4>Fill free to add these banknotes to your Collection:</h4>
 <table border="1px">
     <tr bgcolor="#ccc">
         <th>Id</th>

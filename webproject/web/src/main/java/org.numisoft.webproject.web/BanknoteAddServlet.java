@@ -1,15 +1,23 @@
-package org.numisoft.webproject.services;
+package org.numisoft.webproject.web;
 
 
-import org.numisoft.webproject.dao.BanknoteDaoImpl;
-
+import org.apache.log4j.Logger;
+import org.numisoft.webproject.services.BanknoteService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class AddServlet extends HttpServlet {
+/**
+ * BanknoteAddServlet adds Banknotes to Catalog
+ * BanknoteAddServlet can be used only by Admin
+ *
+ */
+
+public class BanknoteAddServlet extends HttpServlet {
+
+    Logger logger = Logger.getLogger(BanknoteAddServlet.class);
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -27,8 +35,12 @@ public class AddServlet extends HttpServlet {
             response.sendRedirect("/webproject/index");
         } else {
 
-            BanknoteDaoImpl bdi = BanknoteDaoImpl.getInstance();
-            bdi.addBanknote(title, country, link);
+
+            BanknoteService banknoteService = BanknoteService.getInstance();
+            banknoteService.addBanknote(title, country, link);
+
+            logger.debug("<<@>> Admin added Banknote title:" + title);
+
             response.sendRedirect("/webproject/index");
         }
 

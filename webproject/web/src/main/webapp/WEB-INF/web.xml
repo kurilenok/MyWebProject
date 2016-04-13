@@ -4,7 +4,7 @@
          id="WebApp_ID" version="3.1">
     <servlet>
         <servlet-name>Index</servlet-name>
-        <servlet-class>org.numisoft.webproject.services.IndexServlet</servlet-class>
+        <servlet-class>org.numisoft.webproject.web.IndexServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Index</servlet-name>
@@ -13,7 +13,7 @@
 
     <servlet>
         <servlet-name>Unsubscribe</servlet-name>
-        <servlet-class>org.numisoft.webproject.services.UnsubscribeServlet</servlet-class>
+        <servlet-class>org.numisoft.webproject.web.CollectibleDeleteServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Unsubscribe</servlet-name>
@@ -22,7 +22,7 @@
 
     <servlet>
         <servlet-name>Subscribe</servlet-name>
-        <servlet-class>org.numisoft.webproject.services.SubscribeServlet</servlet-class>
+        <servlet-class>org.numisoft.webproject.web.CollectibleAddServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Subscribe</servlet-name>
@@ -31,7 +31,7 @@
 
     <servlet>
         <servlet-name>Login</servlet-name>
-        <servlet-class>org.numisoft.webproject.services.LoginServlet</servlet-class>
+        <servlet-class>org.numisoft.webproject.web.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -40,7 +40,7 @@
 
     <servlet>
         <servlet-name>Logout</servlet-name>
-        <servlet-class>org.numisoft.webproject.services.LogoutServlet</servlet-class>
+        <servlet-class>org.numisoft.webproject.web.LogoutServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
@@ -49,7 +49,7 @@
 
     <servlet>
         <servlet-name>Add</servlet-name>
-        <servlet-class>org.numisoft.webproject.services.AddServlet</servlet-class>
+        <servlet-class>org.numisoft.webproject.web.BanknoteAddServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Add</servlet-name>
@@ -58,7 +58,7 @@
 
     <servlet>
         <servlet-name>Delete</servlet-name>
-        <servlet-class>org.numisoft.webproject.services.DeleteServlet</servlet-class>
+        <servlet-class>org.numisoft.webproject.web.BanknoteDeleteServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Delete</servlet-name>
@@ -67,7 +67,7 @@
 
     <filter>
         <filter-name>Authenticate</filter-name>
-        <filter-class>org.numisoft.webproject.services.AuthenticationFilter</filter-class>
+        <filter-class>org.numisoft.webproject.web.AuthenticationFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>Authenticate</filter-name>

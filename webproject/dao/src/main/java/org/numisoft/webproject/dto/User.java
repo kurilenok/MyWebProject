@@ -1,5 +1,11 @@
 package org.numisoft.webproject.dto;
 
+/**
+ * User..
+ *
+ * */
+
+
 public class User {
 
 	private int id;

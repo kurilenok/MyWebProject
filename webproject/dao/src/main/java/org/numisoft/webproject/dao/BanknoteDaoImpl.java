@@ -8,6 +8,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of BanknoteDao
+ *
+ * */
+
 public class BanknoteDaoImpl implements BanknoteDao {
 
     private static BanknoteDaoImpl bdi;

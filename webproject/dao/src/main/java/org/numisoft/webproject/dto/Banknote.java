@@ -1,5 +1,12 @@
 package org.numisoft.webproject.dto;
 
+/**
+ *
+ * Banknote = item in General Catalog
+ *
+ * */
+
+
 public class Banknote {
 
 	private int id;

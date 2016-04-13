@@ -9,6 +9,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Implementation of UserDao
+ *
+ * */
+
 public class UserDaoImpl implements UserDao {
 
     private static UserDaoImpl udi;

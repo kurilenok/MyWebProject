@@ -8,7 +8,7 @@
 <br/>
 <h1>Welcome back, Admin!</h1>
 
-<h4>Add new banknote to database:</h4>
+<h4>Add new banknote to Catalog:</h4>
 
 <script type="text/javascript">
     function validateForm()
@@ -42,7 +42,7 @@
 
 <br/>
 
-<h4>Banknotes in database:</h4>
+<h4>Banknotes in Catalog:</h4>
 <table border="1px">
     <tr bgcolor="#ccc">
         <th>Id</th>
