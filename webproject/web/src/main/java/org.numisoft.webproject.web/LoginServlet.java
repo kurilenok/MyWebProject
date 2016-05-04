@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect("/webproject/index");
 
 		} else {
-			response.sendRedirect("/WEB-INF/error.jsp");
+			response.sendRedirect("/webproject/error.jsp");
 		}
 
 	}

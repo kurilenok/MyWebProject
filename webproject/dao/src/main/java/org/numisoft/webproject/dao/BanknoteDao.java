@@ -3,6 +3,7 @@ package org.numisoft.webproject.dao;
 import org.numisoft.webproject.dto.Banknote;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * BanknoteDao is a DAO class for Banknote entity
@@ -21,11 +22,16 @@ public interface BanknoteDao {
 	/**
 	 * Adds new item to General Catalog
 	 * */
-	void addBanknote(String title, String country, String link);
+	void addBanknoteToCatalog(String title, String country, String link);
 
 	/**
 	 * Deletes item from General Catalog
 	 * */
-	void deleteBanknote(int id);
+	void removeBanknoteFromCatalog(int id);
+
+
+	void addBanknoteToCollection(int user_id, int banknote_id);
+
+	void removeBanknoteFromCollection(int user_id, int banknote_id);
 
 }

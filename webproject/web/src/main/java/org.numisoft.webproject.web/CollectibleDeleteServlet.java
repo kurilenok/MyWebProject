@@ -1,11 +1,13 @@
 package org.numisoft.webproject.web;
 
 import org.apache.log4j.Logger;
-import org.numisoft.webproject.services.CollectibleService;
+import org.numisoft.webproject.services.BanknoteService;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -22,13 +24,15 @@ public class CollectibleDeleteServlet extends HttpServlet {
 
 		Logger logger = Logger.getLogger(CollectibleDeleteServlet.class);
 
-		int id = Integer.parseInt(request.getParameter("id"));
+		int banknote_id = Integer.parseInt(request.getParameter("id"));
 
+		HttpSession session = request.getSession(false);
+		int user_id = (Integer) session.getAttribute("user_id");
 
-		CollectibleService collectibleService = CollectibleService.getInstance();
-		collectibleService.deleteCollectible(id);
+		BanknoteService banknoteService = BanknoteService.getInstance();
+		banknoteService.removeBanknoteFromCollection(user_id, banknote_id);
 
-		logger.debug("<<@>> User deleted Collectible: id=" + id);
+		logger.debug("<<@>> User deleted Collectible: id=" + banknote_id);
 
 		response.sendRedirect("/webproject/index");
 

@@ -11,13 +11,11 @@
 <h4>Add new banknote to Catalog:</h4>
 
 <script type="text/javascript">
-    function validateForm()
-    {
-        var a=document.forms["Form"]["country"].value;
-        var b=document.forms["Form"]["title"].value;
-        var c=document.forms["Form"]["link"].value;
-        if (a=="" || b=="" || c=="")
-        {
+    function validateForm() {
+        var a = document.forms["Form"]["country"].value;
+        var b = document.forms["Form"]["title"].value;
+        var c = document.forms["Form"]["link"].value;
+        if (a == "" || b == "" || c == "") {
             alert("Please fill in all required fields!");
             return false;
         }
@@ -46,6 +44,7 @@
 <table border="1px">
     <tr bgcolor="#ccc">
         <th>Id</th>
+        <th>Real Id</th>
         <th>Country</th>
         <th>Title</th>
         <th>Image</th>
@@ -56,6 +55,7 @@
         <tr>
                 <c:set var="i" value="${i + 1}" scope="page"/>
             <td><c:out value="${i}"/>
+            <td><c:out value="${p.getId()}"/>
             <td><c:out value="${p.getCountry()}"/>
             <td><c:out value="${p.getTitle()}"/>
             <td><img src="${p.getLink()}" alt="Image for ${p.getTitle()}" width="250"></td>

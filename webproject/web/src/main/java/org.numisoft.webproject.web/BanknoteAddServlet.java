@@ -37,7 +37,7 @@ public class BanknoteAddServlet extends HttpServlet {
 
 
             BanknoteService banknoteService = BanknoteService.getInstance();
-            banknoteService.addBanknote(title, country, link);
+            banknoteService.addBanknoteToCatalog(title, country, link);
 
             logger.debug("<<@>> Admin added Banknote title:" + title);
 

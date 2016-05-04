@@ -24,7 +24,7 @@ public class AuthenticationFilter implements Filter {
         HttpSession session = request.getSession(false);
         String uri = request.getRequestURI();
 
-        if (uri.endsWith("/webproject/") || uri.endsWith("login")) {
+        if (uri.endsWith("/webproject/") || uri.endsWith("login") || uri.contains("error")) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else if (null == session) {
             response.sendRedirect("/webproject");

@@ -1,13 +1,17 @@
 package org.numisoft.webproject.dao;
 
+import org.numisoft.webproject.dto.Banknote;
 import org.numisoft.webproject.dto.User;
 import org.numisoft.webproject.utils.DataSource;
+
 import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implementation of UserDao
@@ -91,6 +95,47 @@ public class UserDaoImpl implements UserDao {
         }
 
         return id;
+
+    }
+
+    @Override
+    public List<Banknote> getUserCollection(User user) {
+
+        List<Banknote> collection = new ArrayList<>();
+
+        String template = "SELECT banknotes.id, banknotes.title, " +
+                "countries.country, banknotes.link " +
+                "FROM collections " +
+                "JOIN banknotes ON collections.banknote_id=banknotes.id " +
+                "JOIN users ON collections.user_id=users.id " +
+                "JOIN countries ON banknotes.country_id=countries.id " +
+                "WHERE users.id='" + user.getId() + "' " +
+                "ORDER BY countries.country, " +
+                "CAST(SUBSTRING(title, 1, LOCATE(' ', title)) AS UNSIGNED);";
+
+        try {
+            Connection connection = DataSource.getInstance().getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(template);
+
+            while (result.next()) {
+                Banknote banknote = new Banknote();
+                banknote.setId(result.getInt("id"));
+                banknote.setTitle(result.getString("title"));
+                banknote.setCountry(result.getString("country"));
+                banknote.setLink(result.getString("link"));
+                collection.add(banknote);
+            }
+
+            result.close();
+            statement.close();
+            connection.close();
+
+        } catch (SQLException | IOException | PropertyVetoException e) {
+            e.printStackTrace();
+        }
+
+        return collection;
 
     }
 

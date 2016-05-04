@@ -1,5 +1,7 @@
 package org.numisoft.webproject.dto;
 
+import java.util.Set;
+
 /**
  *
  * Banknote = item in General Catalog
@@ -13,6 +15,8 @@ public class Banknote {
 	private String country;
 	private String title;
 	private String link;
+//	private Set<User> users;
+
 	public Banknote() {
 	}
 
@@ -48,5 +52,11 @@ public class Banknote {
 		this.link = link;
 	}
 
+	/*public Set<User> getUsers() {
+		return users;
+	}
 
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}*/
 }

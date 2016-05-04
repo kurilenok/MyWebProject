@@ -4,7 +4,20 @@
 
 <html>
 	<body>
-	    <form action="/webproject/login" method="post">
+
+	<script type="text/javascript">
+		function validateForm() {
+			var a = document.forms["Form"]["username"].value;
+			var b = document.forms["Form"]["password"].value;
+			if (a == "" || b == "") {
+				alert("Please fill in all required fields!");
+				return false;
+			}
+		}
+	</script>
+
+
+	    <form name="Form" action="/webproject/login" method="post" onsubmit="validateForm()">
 			<h4>Username:</h4>
 			<input name="username" type="text"><br/>
 			<h4>Password:</h4>

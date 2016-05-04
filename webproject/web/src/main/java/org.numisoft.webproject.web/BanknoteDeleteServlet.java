@@ -25,7 +25,7 @@ public class BanknoteDeleteServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
 
         BanknoteService banknoteService = BanknoteService.getInstance();
-        banknoteService.deleteBanknote(id);
+        banknoteService.removeBanknoteFromCatalog(id);
 
         logger.debug("<<@>> Admin deleted Banknote: id=" + id);
 

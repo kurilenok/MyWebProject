@@ -1,7 +1,10 @@
 package org.numisoft.webproject.services;
 
 import org.numisoft.webproject.dao.UserDaoImpl;
+import org.numisoft.webproject.dto.Banknote;
 import org.numisoft.webproject.dto.User;
+
+import java.util.List;
 
 /**
  * UserService is a Service class for User entity
@@ -30,6 +33,10 @@ public class UserService {
 
     public int authenticate(String username, String password) {
         return udi.authenticate(username, password);
+    }
+
+    public List<Banknote> getUserCollection(User user) {
+        return udi.getUserCollection(user);
     }
 
 }

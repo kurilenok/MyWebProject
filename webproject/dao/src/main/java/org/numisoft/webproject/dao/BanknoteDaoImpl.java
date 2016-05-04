@@ -2,6 +2,7 @@ package org.numisoft.webproject.dao;
 
 import org.numisoft.webproject.dto.Banknote;
 import org.numisoft.webproject.utils.DataSource;
+
 import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.sql.*;
@@ -10,8 +11,7 @@ import java.util.List;
 
 /**
  * Implementation of BanknoteDao
- *
- * */
+ */
 
 public class BanknoteDaoImpl implements BanknoteDao {
 
@@ -65,7 +65,7 @@ public class BanknoteDaoImpl implements BanknoteDao {
 
     public List<Banknote> getAllBanknotes() {
 
-        List<Banknote> banknotes = new ArrayList<Banknote>();
+        List<Banknote> banknotes = new ArrayList<>();
 
         try {
             String template = "SELECT banknotes.id, banknotes.title, " +
@@ -100,7 +100,7 @@ public class BanknoteDaoImpl implements BanknoteDao {
     }
 
 
-    public void addBanknote(String title, String country, String link) {
+    public void addBanknoteToCatalog(String title, String country, String link) {
 
         try {
             String template = "INSERT INTO countries (country) VALUES ('" + country + "');";
@@ -130,11 +130,51 @@ public class BanknoteDaoImpl implements BanknoteDao {
     }
 
 
-    public void deleteBanknote(int id) {
+    public void removeBanknoteFromCatalog(int id) {
 
         try {
             String template = "DELETE FROM banknotes WHERE id=" + id + ";";
 
+            Connection connection = DataSource.getInstance().getConnection();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(template);
+
+            statement.close();
+            connection.close();
+
+        } catch (SQLException | IOException | PropertyVetoException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void addBanknoteToCollection(int user_id, int banknote_id) {
+
+        String template = "INSERT INTO collections (user_id, banknote_id) "
+                + "VALUES (" + user_id + ", " + banknote_id + ");";
+
+        try {
+            Connection connection = DataSource.getInstance().getConnection();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(template);
+
+            statement.close();
+            connection.close();
+
+        } catch (SQLException | IOException | PropertyVetoException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void removeBanknoteFromCollection(int user_id, int banknote_id) {
+
+        String template = "DELETE FROM collections WHERE user_id = " + user_id +
+                " AND banknote_id = " + banknote_id + ";";
+
+        try {
             Connection connection = DataSource.getInstance().getConnection();
             Statement statement = connection.createStatement();
             statement.executeUpdate(template);

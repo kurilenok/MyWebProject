@@ -1,5 +1,7 @@
 package org.numisoft.webproject.dto;
 
+import java.util.Set;
+
 /**
  * User..
  *
@@ -14,6 +16,8 @@ public class User {
 	private String username;
 	private String password;
 	private int role_id;
+
+	private Set<Banknote> banknotes;
 
 	public User() {
 	}
@@ -66,4 +70,11 @@ public class User {
 		this.role_id = role_id;
 	}
 
+	public Set<Banknote> getBanknotes() {
+		return banknotes;
+	}
+
+	public void setBanknotes(Set<Banknote> banknotes) {
+		this.banknotes = banknotes;
+	}
 }

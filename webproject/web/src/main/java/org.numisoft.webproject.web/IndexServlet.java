@@ -2,7 +2,8 @@ package org.numisoft.webproject.web;
 
 import org.numisoft.webproject.dto.User;
 import org.numisoft.webproject.services.BanknoteService;
-import org.numisoft.webproject.services.CollectibleService;
+import org.numisoft.webproject.services.UserService;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,8 +15,7 @@ import java.io.IOException;
 /**
  * IndexServlet sorts Users (Admin or non-Admin User)
  * and redirects Admin to catalog.jsp or non-Admin to collectible.jsp
- *
- * */
+ */
 
 
 public class IndexServlet extends HttpServlet {
@@ -38,8 +38,11 @@ public class IndexServlet extends HttpServlet {
 
         } else {
 
-            CollectibleService collectibleService = CollectibleService.getInstance();
-            request.setAttribute("collectibles", collectibleService.getCollectiblesByUser(user));
+            UserService userService = UserService.getInstance();
+            request.setAttribute("collectibles", userService.getUserCollection(user));
+
+//            CollectibleService collectibleService = CollectibleService.getInstance();
+//            request.setAttribute("collectibles", collectibleService.getCollectiblesByUser(user));
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/collection.jsp");
             dispatcher.forward(request, response);

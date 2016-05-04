@@ -17,6 +17,7 @@
 <table border="1px">
     <tr bgcolor="#ccc">
         <th>Id</th>
+        <th>Real Id</th>
         <th>Title</th>
         <th>Country</th>
         <th>Image</th>
@@ -27,6 +28,7 @@
         <tr>
                 <c:set var="i" value="${i + 1}" scope="page"/>
             <td><c:out value="${i}"/>
+            <td><c:out value="${s.getId()}"/>
             <td><c:out value="${s.getTitle()}"/>
             <td><c:out value="${s.getCountry()}"/>
             <td><img src="${s.getLink()}" alt="Image for ${s.getTitle()}" width="250"></td>

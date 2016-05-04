@@ -34,12 +34,20 @@ public class BanknoteService {
         return bdi.getAllBanknotes();
     }
 
-    public void addBanknote(String title, String country, String link) {
-        bdi.addBanknote(title, country, link);
+    public void addBanknoteToCatalog(String title, String country, String link) {
+        bdi.addBanknoteToCatalog(title, country, link);
     }
 
-    public void deleteBanknote(int id) {
-        bdi.deleteBanknote(id);
+    public void removeBanknoteFromCatalog(int id) {
+        bdi.removeBanknoteFromCatalog(id);
+    }
+
+   public void addBanknoteToCollection(int user_id, int banknote_id) {
+        bdi.addBanknoteToCollection(user_id, banknote_id);
+    }
+
+    public void removeBanknoteFromCollection(int user_id, int banknote_id) {
+        bdi.removeBanknoteFromCollection(user_id, banknote_id);
     }
 
 }
