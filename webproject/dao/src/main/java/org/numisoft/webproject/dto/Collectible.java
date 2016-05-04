@@ -5,6 +5,7 @@ package org.numisoft.webproject.dto;
  *
  * */
 
+/**/
 
 public class Collectible {
 
