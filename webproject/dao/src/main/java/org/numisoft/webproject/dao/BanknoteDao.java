@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface BanknoteDao {
 
-	Banknote getBanknoteByid(int id);
+	Banknote getBanknoteById(int id);
 
 	/**
 	 * Gets all items from General Catalog

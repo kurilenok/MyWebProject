@@ -29,7 +29,7 @@ public class BanknoteDaoImpl implements BanknoteDao {
         }
     }
 
-    public Banknote getBanknoteByid(int id) {
+    public Banknote getBanknoteById(int id) {
 
         Banknote banknote = new Banknote();
 

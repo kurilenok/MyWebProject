@@ -27,7 +27,7 @@ public class BanknoteService {
     private BanknoteDaoImpl bdi = BanknoteDaoImpl.getInstance();
 
     public Banknote getBanknoteById(int id) {
-        return bdi.getBanknoteByid(id);
+        return bdi.getBanknoteById(id);
     }
 
     public List<Banknote> getAllBanknotes() {
