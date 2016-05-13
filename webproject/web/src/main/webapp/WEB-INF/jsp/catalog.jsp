@@ -32,10 +32,10 @@
             <th>Image link</th>
         </tr>
         <tr>
-            <td><input name="country" type="text" size="9"></td>
-            <td><input name="nominal" type="text" size="3"></td>
-            <td><input name="title" type="text" size="3"></td>
-            <td><input name="link" type="text" size="21"></td>
+            <td><input name="country" type="text" size="6" required></td>
+            <td><input name="nominal" type="text" size="3" pattern="^[1-9]\d*$" required></td>
+            <td><input name="title" type="text" size="3" required></td>
+            <td><input name="link" type="text" size="18" required></td>
         </tr>
     </table>
     <input type="submit" value="Add">
