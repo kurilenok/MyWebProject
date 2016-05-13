@@ -5,6 +5,7 @@ import org.numisoft.webproject.dto.Banknote;
 import org.numisoft.webproject.dto.User;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * UserService is a Service class for User entity
@@ -35,8 +36,8 @@ public class UserService {
         return udi.authenticate(username, password);
     }
 
-    public List<Banknote> getUserCollection(User user) {
-        return udi.getUserCollection(user);
+    public Set<Banknote> getUserCollection(int user_id) {
+        return udi.getUserCollection(user_id);
     }
 
 }

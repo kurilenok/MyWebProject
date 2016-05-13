@@ -17,7 +17,7 @@ public interface UserDao {
 
 	int authenticate(String username, String password);
 
-	List<Banknote> getUserCollection(User user);
+	Set<Banknote> getUserCollection(int user_id);
 
 
 

@@ -24,6 +24,7 @@ public class BanknoteAddServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String title = request.getParameter("title");
+        int nominal = Integer.parseInt(request.getParameter("nominal"));
         String country = request.getParameter("country");
         String link = request.getParameter("link");
 
@@ -37,7 +38,7 @@ public class BanknoteAddServlet extends HttpServlet {
 
 
             BanknoteService banknoteService = BanknoteService.getInstance();
-            banknoteService.addBanknoteToCatalog(title, country, link);
+            banknoteService.addBanknoteToCatalog(title, nominal, country, link);
 
             logger.debug("<<@>> Admin added Banknote title:" + title);
 

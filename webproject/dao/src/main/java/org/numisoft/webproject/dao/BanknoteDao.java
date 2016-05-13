@@ -14,15 +14,19 @@ public interface BanknoteDao {
 	Banknote getBanknoteById(int id);
 
 	/**
-	 * Gets all items from General Catalog
+	 * This method gets all items from Catalog
+	 * and provides data for pagination:
+	 * @param currentPage is number of current page
 	 *
 	 * */
-	List<Banknote> getAllBanknotes();
+	Set<Banknote> getAllBanknotes(int currentPage);
+
+	long calculateMaxPages();
 
 	/**
 	 * Adds new item to General Catalog
 	 * */
-	void addBanknoteToCatalog(String title, String country, String link);
+	void addBanknoteToCatalog(String title, int nominal, String country, String link);
 
 	/**
 	 * Deletes item from General Catalog

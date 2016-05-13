@@ -33,6 +33,7 @@ public class LoginServlet extends HttpServlet {
 
 			HttpSession session = request.getSession(true);
 			session.setAttribute("user", userService.getUserById(id));
+			session.setAttribute("currentPage", 1);
 
 			logger.debug("<<@>> User logged in: " + userService.getUserById(id).getUsername());
 

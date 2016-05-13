@@ -24,12 +24,26 @@ public class IndexServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        BanknoteService banknoteService = BanknoteService.getInstance();
-        request.setAttribute("banknotes", banknoteService.getAllBanknotes());
+        Integer page = -1;
+
+        try {
+            page = Integer.parseInt(request.getParameter("page"));
+        } catch (Exception e) {
+
+        }
+
+        if (page == null || page < 0) {
+            page = 1;
+        }
 
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         session.setAttribute("user_id", user.getId());
+
+        BanknoteService banknoteService = BanknoteService.getInstance();
+        request.setAttribute("banknotes", banknoteService.getAllBanknotes(page));
+        request.setAttribute("currentPage", page);
+        request.setAttribute("maxPages", banknoteService.calculateMaxPages());
 
         if (user.getRole_id() == 1) {
 
@@ -39,10 +53,7 @@ public class IndexServlet extends HttpServlet {
         } else {
 
             UserService userService = UserService.getInstance();
-            request.setAttribute("collectibles", userService.getUserCollection(user));
-
-//            CollectibleService collectibleService = CollectibleService.getInstance();
-//            request.setAttribute("collectibles", collectibleService.getCollectiblesByUser(user));
+            request.setAttribute("collectibles", userService.getUserCollection(user.getId()));
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/collection.jsp");
             dispatcher.forward(request, response);

@@ -14,7 +14,7 @@ public class BanknoteDaoImplTest extends TestCase {
 
             BanknoteDaoImpl bdi = BanknoteDaoImpl.getInstance();
             assertEquals("1 som", bdi.getBanknoteById(1).getTitle());
-            assertTrue(bdi.getAllBanknotes().size() > 20);
+            assertTrue(bdi.getAllBanknotes(1).size() > 5);
 
     }
 }

@@ -1,80 +1,106 @@
 package org.numisoft.webproject.dto;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Proxy;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * User..
- *
- * */
+ */
 
+@Entity
+@Table(name = "users")
+@Proxy(lazy = false)
 
-public class User {
+public class User implements Serializable {
 
-	private int id;
-	private String first_name;
-	private String last_name;
-	private String username;
-	private String password;
-	private int role_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-	private Set<Banknote> banknotes;
+    @Column
+    private String first_name;
 
-	public User() {
-	}
+    @Column
+    private String username;
 
-	public int getId() {
-		return id;
-	}
+    @Column
+    private String password;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    @Column
+    private String last_name;
 
-	public String getFirst_name() {
-		return first_name;
-	}
+    @Column
+    private int role_id;
 
-	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
-	}
+    @ManyToMany(fetch = FetchType.EAGER,
+            targetEntity = org.numisoft.webproject.dto.Banknote.class)
+    @JoinTable(name = "collections",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "banknote_id")})
+    private Set<Banknote> banknotes = new TreeSet<>();
 
-	public String getLast_name() {
-		return last_name;
-	}
+    public User() {
+    }
 
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public String getFirst_name() {
+        return first_name;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getLast_name() {
+        return last_name;
+    }
 
-	public int getRole_id() {
-		return role_id;
-	}
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
 
-	public void setRole_id(int role_id) {
-		this.role_id = role_id;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public Set<Banknote> getBanknotes() {
-		return banknotes;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setBanknotes(Set<Banknote> banknotes) {
-		this.banknotes = banknotes;
-	}
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getRole_id() {
+        return role_id;
+    }
+
+    public void setRole_id(int role_id) {
+        this.role_id = role_id;
+    }
+
+  public Set<Banknote> getBanknotes() {
+        return banknotes;
+    }
+
+    public void setBanknotes(Set<Banknote> banknotes) {
+        this.banknotes = banknotes;
+    }
 }

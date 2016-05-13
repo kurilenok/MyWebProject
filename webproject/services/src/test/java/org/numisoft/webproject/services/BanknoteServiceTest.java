@@ -13,7 +13,7 @@ public class BanknoteServiceTest extends TestCase {
 
         BanknoteService banknoteService = BanknoteService.getInstance();
         assertEquals("1 som", banknoteService.getBanknoteById(1).getTitle());
-        assertTrue(banknoteService.getAllBanknotes().size() > 20);
+        assertTrue(banknoteService.getAllBanknotes(1).size() > 5);
 
     }
 

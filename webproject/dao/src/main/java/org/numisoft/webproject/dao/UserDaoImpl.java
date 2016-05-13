@@ -1,8 +1,17 @@
 package org.numisoft.webproject.dao;
 
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.numisoft.webproject.dto.Banknote;
+import org.numisoft.webproject.dto.Country;
 import org.numisoft.webproject.dto.User;
+import org.numisoft.webproject.utils.BanknoteComparator;
 import org.numisoft.webproject.utils.DataSource;
+import org.numisoft.webproject.utils.HibernateUtil;
 
 import java.beans.PropertyVetoException;
 import java.io.IOException;
@@ -12,6 +21,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import javax.persistence.Entity;
 
 /**
  * Implementation of UserDao
@@ -34,8 +46,8 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-
-    public User getUserById(int id) {
+/*
+   public User getUserById(int id) {
 
         User user = new User();
 
@@ -63,10 +75,60 @@ public class UserDaoImpl implements UserDao {
         }
 
         return user;
+    }*/
+
+    @Override
+    public User getUserById(int id) {
+
+        HibernateUtil hibernateUtil = HibernateUtil.getHibernateUtil();
+        Session session = hibernateUtil.getSession();
+
+        User user = (User) session.load(org.numisoft.webproject.dto.User.class, id);
+
+        hibernateUtil.closeSession();
+
+        return  user;
+    }
+
+    @Override
+    public int authenticate(String username, String password) {
+
+        HibernateUtil hibernateUtil = HibernateUtil.getHibernateUtil();
+        Session session = hibernateUtil.getSession();
+
+        String hql = "from User u where u.username=:uname";
+        Query query = session.createQuery(hql);
+        query.setParameter("uname", username);
+        List results = query.list();
+
+        User u = (User) results.get(0);
+
+        hibernateUtil.closeSession();
+
+        return u.getId();
+
+    }
+
+    @Override
+    public Set<Banknote> getUserCollection(int user_id) {
+
+        HibernateUtil hibernateUtil = HibernateUtil.getHibernateUtil();
+        Session session = hibernateUtil.getSession();
+
+        Transaction transaction = session.beginTransaction();
+
+        User user = (User) session.load(org.numisoft.webproject.dto.User.class, user_id);
+        Set<Banknote> banknotes = new TreeSet<>(user.getBanknotes());
+
+        transaction.commit();
+
+        hibernateUtil.closeSession();
+
+        return banknotes;
     }
 
 
-    public int authenticate(String username, String password) {
+   /* public int authenticate(String username, String password) {
 
         String correctPassword = "";
         int id = 0;
@@ -96,8 +158,10 @@ public class UserDaoImpl implements UserDao {
 
         return id;
 
-    }
+    }*/
 
+
+    /*
     @Override
     public List<Banknote> getUserCollection(User user) {
 
@@ -122,7 +186,7 @@ public class UserDaoImpl implements UserDao {
                 Banknote banknote = new Banknote();
                 banknote.setId(result.getInt("id"));
                 banknote.setTitle(result.getString("title"));
-                banknote.setCountry(result.getString("country"));
+                banknote.setCountry(new Country(result.getString("country")));
                 banknote.setLink(result.getString("link"));
                 collection.add(banknote);
             }
@@ -138,6 +202,7 @@ public class UserDaoImpl implements UserDao {
         return collection;
 
     }
+    */
 
 
 }
