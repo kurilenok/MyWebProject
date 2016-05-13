@@ -57,7 +57,13 @@ public class UserDaoImpl implements UserDao {
 
         hibernateUtil.closeSession();
 
-        return u.getId();
+        if (password.equalsIgnoreCase(u.getPassword())) {
+            return u.getId();
+
+        } else {
+            return -1;
+        }
+
     }
 
     @Override
@@ -77,7 +83,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void addBanknoteToCollection(int user_id, int banknote_id) {
+    public boolean addBanknoteToCollection(int user_id, int banknote_id) {
 
         HibernateUtil hibernateUtil = HibernateUtil.getHibernateUtil();
         Session session = hibernateUtil.getSession();
@@ -87,17 +93,19 @@ public class UserDaoImpl implements UserDao {
         Banknote banknote = (Banknote) session.load(org.numisoft.webproject.dto.Banknote.class,
                 banknote_id);
 
-        user.getBanknotes().add(banknote);
+        boolean sucess = user.getBanknotes().add(banknote);
 
         session.persist(user);
 
         transaction.commit();
         hibernateUtil.closeSession();
+
+        return sucess;
 
     }
 
     @Override
-    public void removeBanknoteFromCollection(int user_id, int banknote_id) {
+    public boolean removeBanknoteFromCollection(int user_id, int banknote_id) {
 
         HibernateUtil hibernateUtil = HibernateUtil.getHibernateUtil();
         Session session = hibernateUtil.getSession();
@@ -107,13 +115,14 @@ public class UserDaoImpl implements UserDao {
         Banknote banknote = (Banknote) session.load(org.numisoft.webproject.dto.Banknote.class,
                 banknote_id);
 
-        user.getBanknotes().remove(banknote);
+        boolean success = user.getBanknotes().remove(banknote);
 
         session.persist(user);
 
         transaction.commit();
         hibernateUtil.closeSession();
 
+        return success;
     }
 
 }

@@ -11,8 +11,11 @@ public class UserServiceImplTest extends TestCase {
     @Test
     public void test() {
 
-        UserServiceImpl userServiceImpl = UserServiceImpl.getInstance();
-        assertEquals(4, userServiceImpl.authenticate("admin", "admin"));
+        UserServiceImpl usi = UserServiceImpl.getInstance();
+        assertEquals(4, usi.authenticate("admin", "admin"));
+        assertTrue(usi.getUserCollection(2).size() > 0);
+        assertTrue(usi.addBanknoteToCollection(4, 25));
+        assertTrue(usi.removeBanknoteFromCollection(4, 25));
 
     }
 

@@ -16,8 +16,8 @@ public interface UserService {
 
     Set<Banknote> getUserCollection(int user_id);
 
-    void addBanknoteToCollection(int user_id, int banknote_id);
+    boolean addBanknoteToCollection(int user_id, int banknote_id);
 
-    void removeBanknoteFromCollection(int user_id, int banknote_id);
+    boolean removeBanknoteFromCollection(int user_id, int banknote_id);
 
 }

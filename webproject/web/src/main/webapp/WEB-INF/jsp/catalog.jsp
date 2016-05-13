@@ -74,7 +74,7 @@
                 <c:set var="i" value="${i + 1}" scope="page"/>
             <td><c:out value="${10*(requestScope.currentPage - 1) + i}"/>
             <td><c:out value="${b.getCountry()}"/>
-            <td><c:out value="${b.getTitle()}"/>
+            <td><c:out value="${b.getNominal()}"/>&nbsp;<c:out value="${b.getTitle()}"/>
             <td><img src="${b.getLink()}" alt="Image for ${b.getTitle()}" width="250"></td>
             <td><a href="/webproject/delete?id=${b.getId()}">Delete</a></td>
         <tr/>

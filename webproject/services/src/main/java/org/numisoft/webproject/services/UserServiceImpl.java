@@ -39,11 +39,11 @@ public class UserServiceImpl implements UserService {
         return udi.getUserCollection(user_id);
     }
 
-    public void addBanknoteToCollection(int user_id, int banknote_id) {
-        udi.addBanknoteToCollection(user_id, banknote_id);
+    public boolean addBanknoteToCollection(int user_id, int banknote_id) {
+        return udi.addBanknoteToCollection(user_id, banknote_id);
     }
 
-    public void removeBanknoteFromCollection(int user_id, int banknote_id) {
-        udi.removeBanknoteFromCollection(user_id, banknote_id);
+    public boolean removeBanknoteFromCollection(int user_id, int banknote_id) {
+        return udi.removeBanknoteFromCollection(user_id, banknote_id);
     }
 }

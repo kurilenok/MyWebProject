@@ -36,8 +36,7 @@ public class User implements Serializable {
     @Column
     private int role_id;
 
-    @ManyToMany(fetch = FetchType.EAGER,
-            targetEntity = org.numisoft.webproject.dto.Banknote.class)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "collections",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "banknote_id")})

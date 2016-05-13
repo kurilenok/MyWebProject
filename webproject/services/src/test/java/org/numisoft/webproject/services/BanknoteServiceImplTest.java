@@ -12,7 +12,8 @@ public class BanknoteServiceImplTest extends TestCase {
     public void test() {
 
         BanknoteServiceImpl banknoteServiceImpl = BanknoteServiceImpl.getInstance();
-        assertEquals("1 som", banknoteServiceImpl.getBanknoteById(1).getTitle());
+        assertEquals("som", banknoteServiceImpl.getBanknoteById(25).getTitle());
+        assertEquals(10, banknoteServiceImpl.getBanknoteById(25).getNominal());
         assertTrue(banknoteServiceImpl.getAllBanknotes(1).size() > 5);
 
     }

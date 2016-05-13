@@ -1,6 +1,7 @@
 package org.numisoft.webproject.dao;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
@@ -137,6 +138,7 @@ public class BanknoteDaoImpl implements BanknoteDao {
         HibernateUtil hibernateUtil = HibernateUtil.getHibernateUtil();
         Session session = hibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
+
 
         Banknote banknote = (Banknote) session.load(org.numisoft.webproject.dto.Banknote.class, id);
         session.delete(banknote);

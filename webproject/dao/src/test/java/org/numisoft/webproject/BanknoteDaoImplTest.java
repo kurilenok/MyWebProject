@@ -13,8 +13,10 @@ public class BanknoteDaoImplTest extends TestCase {
     public void test() {
 
             BanknoteDaoImpl bdi = BanknoteDaoImpl.getInstance();
-            assertEquals("1 som", bdi.getBanknoteById(1).getTitle());
+            assertEquals("som", bdi.getBanknoteById(25).getTitle());
+            assertEquals(10, bdi.getBanknoteById(25).getNominal());
             assertTrue(bdi.getAllBanknotes(1).size() > 5);
+            assertTrue(bdi.calculateMaxPages() > 0);
 
     }
 }

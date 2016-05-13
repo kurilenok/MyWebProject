@@ -3,6 +3,8 @@ package org.numisoft.webproject.dto;
 import org.hibernate.annotations.Proxy;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Banknote = item in General Catalog
@@ -17,8 +19,7 @@ public class Banknote implements Serializable, Comparable<Banknote> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @ManyToOne(cascade = {javax.persistence.CascadeType.PERSIST,
-            javax.persistence.CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "country_id")
     private Country country;
 
@@ -31,8 +32,11 @@ public class Banknote implements Serializable, Comparable<Banknote> {
     @Column
     private String link;
 
-//	@ManyToMany(mappedBy = "banknotes")
-//	private Set<User> users = new TreeSet<>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = "collections",
+            joinColumns = {@JoinColumn(name = "banknote_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")})
+	private Set<User> users = new TreeSet<>();
 
     public Banknote() {
     }
@@ -89,11 +93,11 @@ public class Banknote implements Serializable, Comparable<Banknote> {
 
     }
 
-//	public Set<User> getUsers() {
-//		return users;
-//	}
-//
-//	public void setUsers(Set<User> users) {
-//		this.users = users;
-//	}
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
 }

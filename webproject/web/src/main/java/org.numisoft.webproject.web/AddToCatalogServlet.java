@@ -37,7 +37,6 @@ public class AddToCatalogServlet extends HttpServlet {
             response.sendRedirect(Constants.PATH_TO_INDEX);
         } else {
 
-
             BanknoteServiceImpl banknoteServiceImpl = BanknoteServiceImpl.getInstance();
             banknoteServiceImpl.addBanknoteToCatalog(title, nominal, country, link);
 
