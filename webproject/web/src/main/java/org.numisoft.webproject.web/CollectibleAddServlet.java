@@ -1,7 +1,7 @@
 package org.numisoft.webproject.web;
 
 import org.apache.log4j.Logger;
-import org.numisoft.webproject.services.BanknoteService;
+import org.numisoft.webproject.services.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 /**
  * CollectibleAddSerlvet adds Banknote to User Collectiion
@@ -30,12 +31,13 @@ public class CollectibleAddServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		int user_id = (Integer) session.getAttribute("user_id");
 
-		BanknoteService banknoteService = BanknoteService.getInstance();
-		banknoteService.addBanknoteToCollection(user_id, banknote_id);
+		UserServiceImpl userServiceImpl = UserServiceImpl.getInstance();
+		userServiceImpl.addBanknoteToCollection(user_id, banknote_id);
 
 		logger.debug("<<@>> User added Collectible: id=" + banknote_id);
 
-		response.sendRedirect("/webproject/index");
+		response.sendRedirect(Constants.PATH_TO_INDEX);
+//		response.sendRedirect("/webproject/index");
 
 	}
 

@@ -1,58 +1,35 @@
 package org.numisoft.webproject.services;
 
-import org.numisoft.webproject.dao.BanknoteDaoImpl;
 import org.numisoft.webproject.dto.Banknote;
 
-import java.util.List;
 import java.util.Set;
 
 /**
- * BanknoteService is a Service class for Banknote entity
+ * Created by kukolka on 13.05.16.
  */
-public class BanknoteService {
+public interface BanknoteService {
 
-    private static BanknoteService banknoteService;
+    Banknote getBanknoteById(int id);
 
-    private BanknoteService() {
-    }
+    /**
+     * This method gets all items from Catalog
+     * and provides data for pagination:
+     * @param currentPage is number of current page
+     *
+     * */
+    Set<Banknote> getAllBanknotes(int currentPage);
 
-    public static BanknoteService getInstance() {
-        if (banknoteService == null) {
-            banknoteService = new BanknoteService();
-            return banknoteService;
-        } else {
-            return banknoteService;
-        }
-    }
+    long calculateMaxPages();
 
-    private BanknoteDaoImpl bdi = BanknoteDaoImpl.getInstance();
+    /**
+     * Adds new item to General Catalog
+     * */
+    void addBanknoteToCatalog(String title, int nominal, String country, String link);
 
-    public Banknote getBanknoteById(int id) {
-        return bdi.getBanknoteById(id);
-    }
+    /**
+     * Deletes item from General Catalog
+     * */
+    void removeBanknoteFromCatalog(int id);
 
-    public Set<Banknote> getAllBanknotes(int page) {
-        return bdi.getAllBanknotes(page);
-    }
-
-    public long calculateMaxPages() {
-        return bdi.calculateMaxPages();
-    }
-
-    public void addBanknoteToCatalog(String title, int nominal, String country, String link) {
-        bdi.addBanknoteToCatalog(title, nominal, country, link);
-    }
-
-    public void removeBanknoteFromCatalog(int id) {
-        bdi.removeBanknoteFromCatalog(id);
-    }
-
-   public void addBanknoteToCollection(int user_id, int banknote_id) {
-        bdi.addBanknoteToCollection(user_id, banknote_id);
-    }
-
-    public void removeBanknoteFromCollection(int user_id, int banknote_id) {
-        bdi.removeBanknoteFromCollection(user_id, banknote_id);
-    }
 
 }

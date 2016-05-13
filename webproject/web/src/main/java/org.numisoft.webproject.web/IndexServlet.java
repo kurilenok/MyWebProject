@@ -1,8 +1,8 @@
 package org.numisoft.webproject.web;
 
 import org.numisoft.webproject.dto.User;
-import org.numisoft.webproject.services.BanknoteService;
-import org.numisoft.webproject.services.UserService;
+import org.numisoft.webproject.services.BanknoteServiceImpl;
+import org.numisoft.webproject.services.UserServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,22 +40,22 @@ public class IndexServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
         session.setAttribute("user_id", user.getId());
 
-        BanknoteService banknoteService = BanknoteService.getInstance();
-        request.setAttribute("banknotes", banknoteService.getAllBanknotes(page));
+        BanknoteServiceImpl banknoteServiceImpl = BanknoteServiceImpl.getInstance();
+        request.setAttribute("banknotes", banknoteServiceImpl.getAllBanknotes(page));
         request.setAttribute("currentPage", page);
-        request.setAttribute("maxPages", banknoteService.calculateMaxPages());
+        request.setAttribute("maxPages", banknoteServiceImpl.calculateMaxPages());
 
         if (user.getRole_id() == 1) {
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/catalog.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher(Constants.PATH_TO_CATALOG);
             dispatcher.forward(request, response);
 
         } else {
 
-            UserService userService = UserService.getInstance();
-            request.setAttribute("collectibles", userService.getUserCollection(user.getId()));
+            UserServiceImpl userServiceImpl = UserServiceImpl.getInstance();
+            request.setAttribute("collectibles", userServiceImpl.getUserCollection(user.getId()));
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/collection.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher(Constants.PATH_TO_COLLECTION);
             dispatcher.forward(request, response);
         }
 

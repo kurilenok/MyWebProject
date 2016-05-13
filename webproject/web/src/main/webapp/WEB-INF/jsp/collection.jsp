@@ -36,27 +36,6 @@
 </table>
 
 <h4>Fill free to add these banknotes to your Collection:</h4>
-<!--table border="1px">
-    <tr bgcolor="#ccc">
-        <th>Id</th>
-        <th>Title</th>
-        <th>Country</th>
-        <th>Image</th>
-        <th></th>
-    </tr>
-    <c:set var="j" scope="page" value="0"/>
-    <c:forEach var="p" items="${requestScope.banknotes}">
-        <tr>
-                <c:set var="j" value="${j + 1}" scope="page"/>
-            <td><c:out value="${j}"/>
-            <td><c:out value="${p.getTitle()}"/>
-            <td><c:out value="${p.getCountry()}"/>
-            <td><img src="${p.getLink()}" alt="Image for ${p.getTitle()}" width="250"></td>
-            <td><a href="/webproject/subscribe?id=${p.getId()}">Add</a></td>
-        <tr/>
-    </c:forEach>
-</table-->
-
 
 -&nbsp;
 <c:forEach begin="1" end="${requestScope.maxPages}" varStatus="p">

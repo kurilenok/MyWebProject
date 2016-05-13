@@ -18,15 +18,15 @@ public class Country implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column
-    private String country;
+    @Column (name = "country")
+    private String countryName;
 
 
     public Country() {
     }
 
-    public Country(String country) {
-        this.country = country;
+    public Country(String countryName) {
+        this.countryName = countryName;
     }
 
     public int getId() {
@@ -37,11 +37,11 @@ public class Country implements Serializable {
         this.id = id;
     }
 
-    public String getCountry() {
-        return country;
+    public String getCountryName() {
+        return countryName;
     }
 
-    public void setCountry(String name) {
-        this.country = name;
+    public void setCountryName(String name) {
+        this.countryName = name;
     }
 }

@@ -1,14 +1,8 @@
 package org.numisoft.webproject.dto;
 
-import org.hibernate.annotations.*;
-import org.hibernate.annotations.CascadeType;
-
+import org.hibernate.annotations.Proxy;
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * Banknote = item in General Catalog
@@ -52,7 +46,7 @@ public class Banknote implements Serializable, Comparable<Banknote> {
     }
 
     public String getCountry() {
-        return country.getCountry();
+        return country.getCountryName();
     }
 
     public void setCountry(Country country) {

@@ -1,7 +1,8 @@
 package org.numisoft.webproject.web;
 
 import org.apache.log4j.Logger;
-import org.numisoft.webproject.services.BanknoteService;
+import org.numisoft.webproject.services.BanknoteServiceImpl;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,12 +25,12 @@ public class BanknoteDeleteServlet extends HttpServlet {
 
         int id = Integer.parseInt(request.getParameter("id"));
 
-        BanknoteService banknoteService = BanknoteService.getInstance();
-        banknoteService.removeBanknoteFromCatalog(id);
+        BanknoteServiceImpl banknoteServiceImpl = BanknoteServiceImpl.getInstance();
+        banknoteServiceImpl.removeBanknoteFromCatalog(id);
 
         logger.debug("<<@>> Admin deleted Banknote: id=" + id);
 
-        response.sendRedirect("/webproject/index");
+        response.sendRedirect(Constants.PATH_TO_INDEX);
 
     }
 

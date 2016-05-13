@@ -1,8 +1,8 @@
 package org.numisoft.webproject.web;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
-import org.numisoft.webproject.services.UserService;
+import org.numisoft.webproject.services.UserServiceImpl;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,19 +25,19 @@ public class LoginServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 
-		UserService userService = UserService.getInstance();
+		UserServiceImpl userServiceImpl = UserServiceImpl.getInstance();
 
-		int id = userService.authenticate(username, password);
+		int id = userServiceImpl.authenticate(username, password);
 
 		if (id > 0) {
 
 			HttpSession session = request.getSession(true);
-			session.setAttribute("user", userService.getUserById(id));
+			session.setAttribute("user", userServiceImpl.getUserById(id));
 			session.setAttribute("currentPage", 1);
 
-			logger.debug("<<@>> User logged in: " + userService.getUserById(id).getUsername());
+			logger.debug("<<@>> User logged in: " + userServiceImpl.getUserById(id).getUsername());
 
-			response.sendRedirect("/webproject/index");
+			response.sendRedirect(Constants.PATH_TO_INDEX);
 
 		} else {
 			response.sendRedirect("/webproject/error.jsp");

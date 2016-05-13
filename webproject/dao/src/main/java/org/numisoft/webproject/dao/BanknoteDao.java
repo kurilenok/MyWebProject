@@ -2,7 +2,6 @@ package org.numisoft.webproject.dao;
 
 import org.numisoft.webproject.dto.Banknote;
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -33,9 +32,5 @@ public interface BanknoteDao {
 	 * */
 	void removeBanknoteFromCatalog(int id);
 
-
-	void addBanknoteToCollection(int user_id, int banknote_id);
-
-	void removeBanknoteFromCollection(int user_id, int banknote_id);
 
 }

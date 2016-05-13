@@ -2,7 +2,8 @@ package org.numisoft.webproject.web;
 
 
 import org.apache.log4j.Logger;
-import org.numisoft.webproject.services.BanknoteService;
+import org.numisoft.webproject.services.BanknoteServiceImpl;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,20 +30,20 @@ public class BanknoteAddServlet extends HttpServlet {
         String link = request.getParameter("link");
 
         if (title.equalsIgnoreCase("")) {
-            response.sendRedirect("/webproject/index");
+            response.sendRedirect(Constants.PATH_TO_INDEX);
         } else if (country.equalsIgnoreCase("")) {
-            response.sendRedirect("/webproject/index");
+            response.sendRedirect(Constants.PATH_TO_INDEX);
         } else if (link.equalsIgnoreCase("")) {
-            response.sendRedirect("/webproject/index");
+            response.sendRedirect(Constants.PATH_TO_INDEX);
         } else {
 
 
-            BanknoteService banknoteService = BanknoteService.getInstance();
-            banknoteService.addBanknoteToCatalog(title, nominal, country, link);
+            BanknoteServiceImpl banknoteServiceImpl = BanknoteServiceImpl.getInstance();
+            banknoteServiceImpl.addBanknoteToCatalog(title, nominal, country, link);
 
             logger.debug("<<@>> Admin added Banknote title:" + title);
 
-            response.sendRedirect("/webproject/index");
+            response.sendRedirect(Constants.PATH_TO_INDEX);
         }
 
     }

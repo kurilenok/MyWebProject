@@ -19,6 +19,9 @@ public interface UserDao {
 
 	Set<Banknote> getUserCollection(int user_id);
 
+	void addBanknoteToCollection(int user_id, int banknote_id);
+
+	void removeBanknoteFromCollection(int user_id, int banknote_id);
 
 
 }

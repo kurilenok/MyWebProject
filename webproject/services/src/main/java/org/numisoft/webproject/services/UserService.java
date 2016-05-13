@@ -1,43 +1,23 @@
 package org.numisoft.webproject.services;
 
-import org.numisoft.webproject.dao.UserDaoImpl;
 import org.numisoft.webproject.dto.Banknote;
 import org.numisoft.webproject.dto.User;
 
-import java.util.List;
 import java.util.Set;
 
 /**
- * UserService is a Service class for User entity
+ * Created by kukolka on 13.05.16.
  */
-public class UserService {
+public interface UserService {
 
-    private static UserService userService;
+    User getUserById(int id);
 
-    private UserService() {
-    }
+    int authenticate(String username, String password);
 
-    public static UserService getInstance() {
-        if (userService == null) {
-            userService = new UserService();
-            return userService;
-        } else {
-            return userService;
-        }
-    }
+    Set<Banknote> getUserCollection(int user_id);
 
-        private UserDaoImpl udi = UserDaoImpl.getInstance();
+    void addBanknoteToCollection(int user_id, int banknote_id);
 
-    public User getUserById(int id) {
-        return udi.getUserById(id);
-    }
-
-    public int authenticate(String username, String password) {
-        return udi.authenticate(username, password);
-    }
-
-    public Set<Banknote> getUserCollection(int user_id) {
-        return udi.getUserCollection(user_id);
-    }
+    void removeBanknoteFromCollection(int user_id, int banknote_id);
 
 }
