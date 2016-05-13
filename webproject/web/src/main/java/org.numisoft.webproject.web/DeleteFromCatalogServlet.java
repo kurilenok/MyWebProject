@@ -10,18 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * BanknoteDeleteServlet deletes Banknotes from Catalog
- * BanknoteDeleteServlet can be used only by Admin
+ * DeleteFromCatalogServlet deletes Banknotes from Catalog
+ * DeleteFromCatalogServlet can be used only by Admin
  *
  */
 
-public class BanknoteDeleteServlet extends HttpServlet {
+public class DeleteFromCatalogServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Logger logger = Logger.getLogger(BanknoteDeleteServlet.class);
+        Logger logger = Logger.getLogger(DeleteFromCatalogServlet.class);
 
         int id = Integer.parseInt(request.getParameter("id"));
 

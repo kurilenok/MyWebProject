@@ -24,40 +24,37 @@ public class IndexServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        /* Pagination set-up */
         Integer page = -1;
-
         try {
             page = Integer.parseInt(request.getParameter("page"));
         } catch (Exception e) {
-
         }
-
         if (page == null || page < 0) {
             page = 1;
         }
-
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        session.setAttribute("user_id", user.getId());
-
         BanknoteServiceImpl banknoteServiceImpl = BanknoteServiceImpl.getInstance();
         request.setAttribute("banknotes", banknoteServiceImpl.getAllBanknotes(page));
         request.setAttribute("currentPage", page);
         request.setAttribute("maxPages", banknoteServiceImpl.calculateMaxPages());
 
+        /* User verification */
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        session.setAttribute("user_id", user.getId());
+
+        /* If User == Admin */
         if (user.getRole_id() == 1) {
-
             RequestDispatcher dispatcher = request.getRequestDispatcher(Constants.PATH_TO_CATALOG);
-            dispatcher.forward(request, response);
-
-        } else {
-
-            UserServiceImpl userServiceImpl = UserServiceImpl.getInstance();
-            request.setAttribute("collectibles", userServiceImpl.getUserCollection(user.getId()));
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher(Constants.PATH_TO_COLLECTION);
             dispatcher.forward(request, response);
         }
 
+        /* If User != Admin */
+        else {
+            UserServiceImpl userServiceImpl = UserServiceImpl.getInstance();
+            request.setAttribute("collectibles", userServiceImpl.getUserCollection(user.getId()));
+            RequestDispatcher dispatcher = request.getRequestDispatcher(Constants.PATH_TO_COLLECTION);
+            dispatcher.forward(request, response);
+        }
     }
 }

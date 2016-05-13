@@ -9,22 +9,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ResourceBundle;
 
 /**
- * CollectibleAddSerlvet adds Banknote to User Collectiion
+ * Servlet adds Banknote to User Collectiion
  * Banknote added to Collection becomes Collectible
- * CollectibleAddSerlvet can be used by any authenticated User (except Admin)
+ * CSerlvet is used by any authenticated User (except Admin)
  *
  */
 
-public class CollectibleAddServlet extends HttpServlet {
+public class AddToCollectionServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Logger logger = Logger.getLogger(CollectibleAddServlet.class);
+		Logger logger = Logger.getLogger(AddToCollectionServlet.class);
 
 		int banknote_id = Integer.parseInt(request.getParameter("id"));
 
@@ -37,7 +36,6 @@ public class CollectibleAddServlet extends HttpServlet {
 		logger.debug("<<@>> User added Collectible: id=" + banknote_id);
 
 		response.sendRedirect(Constants.PATH_TO_INDEX);
-//		response.sendRedirect("/webproject/index");
 
 	}
 

@@ -16,13 +16,13 @@ import java.io.IOException;
  *
  */
 
-public class CollectibleDeleteServlet extends HttpServlet {
+public class DeleteFromCollectionServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Logger logger = Logger.getLogger(CollectibleDeleteServlet.class);
+		Logger logger = Logger.getLogger(DeleteFromCollectionServlet.class);
 
 		int banknote_id = Integer.parseInt(request.getParameter("id"));
 

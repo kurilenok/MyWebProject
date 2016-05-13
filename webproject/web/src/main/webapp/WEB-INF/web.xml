@@ -13,7 +13,7 @@
 
     <servlet>
         <servlet-name>Unsubscribe</servlet-name>
-        <servlet-class>org.numisoft.webproject.web.CollectibleDeleteServlet</servlet-class>
+        <servlet-class>org.numisoft.webproject.web.DeleteFromCollectionServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Unsubscribe</servlet-name>
@@ -22,7 +22,7 @@
 
     <servlet>
         <servlet-name>Subscribe</servlet-name>
-        <servlet-class>org.numisoft.webproject.web.CollectibleAddServlet</servlet-class>
+        <servlet-class>org.numisoft.webproject.web.AddToCollectionServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Subscribe</servlet-name>
@@ -49,7 +49,7 @@
 
     <servlet>
         <servlet-name>Add</servlet-name>
-        <servlet-class>org.numisoft.webproject.web.BanknoteAddServlet</servlet-class>
+        <servlet-class>org.numisoft.webproject.web.AddToCatalogServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Add</servlet-name>
@@ -58,7 +58,7 @@
 
     <servlet>
         <servlet-name>Delete</servlet-name>
-        <servlet-class>org.numisoft.webproject.web.BanknoteDeleteServlet</servlet-class>
+        <servlet-class>org.numisoft.webproject.web.DeleteFromCatalogServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Delete</servlet-name>

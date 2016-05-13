@@ -11,14 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * BanknoteAddServlet adds Banknotes to Catalog
- * BanknoteAddServlet can be used only by Admin
+ * AddToCatalogServlet adds Banknotes to Catalog
+ * AddToCatalogServlet can be used only by Admin
  *
  */
 
-public class BanknoteAddServlet extends HttpServlet {
+public class AddToCatalogServlet extends HttpServlet {
 
-    Logger logger = Logger.getLogger(BanknoteAddServlet.class);
+    Logger logger = Logger.getLogger(AddToCatalogServlet.class);
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
