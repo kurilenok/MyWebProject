@@ -29,7 +29,7 @@ public class AddToCatalogServlet extends HttpServlet {
         String country = request.getParameter("country");
         String link = request.getParameter("link");
 
-        if (title.equalsIgnoreCase("")) {
+        if ("".equals(title)) {
             response.sendRedirect(Constants.PATH_TO_INDEX);
         } else if (country.equalsIgnoreCase("")) {
             response.sendRedirect(Constants.PATH_TO_INDEX);

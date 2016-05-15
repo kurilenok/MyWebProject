@@ -84,13 +84,16 @@ public class BanknoteDaoImpl implements BanknoteDao {
         Session session = hibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
 
-        Criteria c = session.createCriteria(org.numisoft.webproject.dto.Banknote.class);
-        c.addOrder(Order.asc("country"));
-        c.addOrder(Order.asc("nominal"));
-        c.setFirstResult((currentPage - 1) * Constants.BANKNOTES_PER_PAGE);
-        c.setMaxResults(Constants.BANKNOTES_PER_PAGE);
+        Criteria criteria = session.createCriteria(org.numisoft.webproject.dto.Banknote.class);
+        criteria.createAlias("country", "c");
+        criteria.addOrder(Order.asc("c.countryName"));
+//        criteria.addOrder(Order.asc("country"));
+        criteria.addOrder(Order.asc("nominal"));
 
-        Set<Banknote> banknotes = new TreeSet<>(c.list());
+        criteria.setFirstResult((currentPage - 1) * Constants.BANKNOTES_PER_PAGE);
+        criteria.setMaxResults(Constants.BANKNOTES_PER_PAGE);
+
+        Set<Banknote> banknotes = new TreeSet<>(criteria.list());
 
         transaction.commit();
         hibernateUtil.closeSession();

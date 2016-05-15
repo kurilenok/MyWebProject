@@ -19,9 +19,9 @@
 
 	    <form name="Form" action="/webproject/login" method="post" onsubmit="validateForm()">
 			<h4>Username:</h4>
-			<input name="username" type="text"><br/>
+			<input name="username" type="text" required><br/>
 			<h4>Password:</h4>
-			<input name="password" type="text"><br/>
+			<input name="password" type="text" required><br/>
 			<br/>
 			<input type="submit" value="Log in">
 		</form>

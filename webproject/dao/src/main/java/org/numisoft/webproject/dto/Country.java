@@ -18,6 +18,7 @@ public class Country implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @OrderColumn
     @Column (name = "country")
     private String countryName;
 

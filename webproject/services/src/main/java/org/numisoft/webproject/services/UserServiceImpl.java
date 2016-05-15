@@ -25,25 +25,25 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-        private UserDaoImpl udi = UserDaoImpl.getInstance();
+        private UserDaoImpl userDao = UserDaoImpl.getInstance();
 
     public User getUserById(int id) {
-        return udi.getUserById(id);
+        return userDao.getUserById(id);
     }
 
     public int authenticate(String username, String password) {
-        return udi.authenticate(username, password);
+        return userDao.authenticate(username, password);
     }
 
     public Set<Banknote> getUserCollection(int user_id) {
-        return udi.getUserCollection(user_id);
+        return userDao.getUserCollection(user_id);
     }
 
     public boolean addBanknoteToCollection(int user_id, int banknote_id) {
-        return udi.addBanknoteToCollection(user_id, banknote_id);
+        return userDao.addBanknoteToCollection(user_id, banknote_id);
     }
 
     public boolean removeBanknoteFromCollection(int user_id, int banknote_id) {
-        return udi.removeBanknoteFromCollection(user_id, banknote_id);
+        return userDao.removeBanknoteFromCollection(user_id, banknote_id);
     }
 }
