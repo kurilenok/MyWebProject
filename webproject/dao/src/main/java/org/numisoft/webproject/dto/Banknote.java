@@ -19,7 +19,7 @@ public class Banknote implements Serializable, Comparable<Banknote> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "country_id")
     private Country country;
 

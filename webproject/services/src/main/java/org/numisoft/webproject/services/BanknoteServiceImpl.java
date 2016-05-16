@@ -1,7 +1,12 @@
 package org.numisoft.webproject.services;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.numisoft.webproject.dao.BanknoteDaoImpl;
+import org.numisoft.webproject.dao.CountryDaoImpl;
 import org.numisoft.webproject.dto.Banknote;
+import org.numisoft.webproject.dto.Country;
+import org.numisoft.webproject.utils.HibernateUtil;
 
 import java.util.Set;
 
@@ -10,41 +15,66 @@ import java.util.Set;
  */
 public class BanknoteServiceImpl implements BanknoteService {
 
-    private static BanknoteServiceImpl banknoteServiceImpl;
+    private static BanknoteServiceImpl banknoteService;
 
     private BanknoteServiceImpl() {
     }
 
     public static BanknoteServiceImpl getInstance() {
-        if (banknoteServiceImpl == null) {
-            banknoteServiceImpl = new BanknoteServiceImpl();
-            return banknoteServiceImpl;
+        if (banknoteService == null) {
+            banknoteService = new BanknoteServiceImpl();
+            return banknoteService;
         } else {
-            return banknoteServiceImpl;
+            return banknoteService;
         }
     }
 
-    private BanknoteDaoImpl bdi = BanknoteDaoImpl.getInstance();
+    private BanknoteDaoImpl banknoteDao = BanknoteDaoImpl.getInstance();
 
 
     public Banknote getBanknoteById(int id) {
-        return bdi.getBanknoteById(id);
+        return banknoteDao.getBanknoteById(id);
     }
 
     public Set<Banknote> getAllBanknotes(int page) {
-        return bdi.getAllBanknotes(page);
+        return banknoteDao.getAllBanknotes(page);
     }
 
     public long calculateMaxPages() {
-        return bdi.calculateMaxPages();
+        return banknoteDao.calculateMaxPages();
     }
 
-    public void addBanknoteToCatalog(String title, int nominal, String country, String link) {
-        bdi.addBanknoteToCatalog(title, nominal, country, link);
+
+    public void addBanknoteToCatalog(String title, int nominal, String countryName, String link) {
+
+        HibernateUtil hibernateUtil = HibernateUtil.getHibernateUtil();
+        Session session = hibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+
+        Country country = CountryDaoImpl.getInstance().getCountryByName(countryName, session);
+
+        if (country == null) {
+            country = new Country();
+            country.setCountryName(countryName);
+        }
+
+
+        Banknote banknote = new Banknote();
+        banknote.setTitle(title);
+        banknote.setNominal(nominal);
+        banknote.setCountry(country);
+        banknote.setLink(link);
+
+        session.persist(banknote);
+
+        transaction.commit();
+        hibernateUtil.closeSession();
+
     }
+
 
     public void removeBanknoteFromCatalog(int id) {
-        bdi.removeBanknoteFromCatalog(id);
+        banknoteDao.removeBanknoteFromCatalog(id);
     }
 
 
