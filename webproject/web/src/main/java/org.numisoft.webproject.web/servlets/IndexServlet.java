@@ -1,8 +1,9 @@
-package org.numisoft.webproject.web;
+package org.numisoft.webproject.web.servlets;
 
 import org.numisoft.webproject.dto.User;
 import org.numisoft.webproject.services.BanknoteServiceImpl;
 import org.numisoft.webproject.services.UserServiceImpl;
+import org.numisoft.webproject.web.utils.Constants;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

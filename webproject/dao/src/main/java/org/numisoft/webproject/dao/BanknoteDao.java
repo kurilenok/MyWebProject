@@ -1,5 +1,6 @@
 package org.numisoft.webproject.dao;
 
+import org.hibernate.Session;
 import org.numisoft.webproject.dto.Banknote;
 
 import java.util.Set;
@@ -18,7 +19,7 @@ public interface BanknoteDao {
 	 * @param currentPage is number of current page
 	 *
 	 * */
-	Set<Banknote> getAllBanknotes(int currentPage);
+	Set<Banknote> getAllBanknotes(int currentPage, Session session);
 
 	long calculateMaxPages();
 

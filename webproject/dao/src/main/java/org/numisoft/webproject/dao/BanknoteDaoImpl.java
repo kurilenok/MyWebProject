@@ -1,7 +1,6 @@
 package org.numisoft.webproject.dao;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
@@ -9,7 +8,6 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.numisoft.webproject.dto.Banknote;
 import org.numisoft.webproject.dto.Country;
-import org.numisoft.webproject.dto.User;
 import org.numisoft.webproject.utils.Constants;
 import org.numisoft.webproject.utils.HibernateUtil;
 
@@ -24,17 +22,17 @@ import java.util.TreeSet;
 
 public class BanknoteDaoImpl implements BanknoteDao {
 
-    private static BanknoteDaoImpl bdi;
+    private static BanknoteDaoImpl banknoteDao;
 
     private BanknoteDaoImpl() {
     }
 
     public static BanknoteDaoImpl getInstance() {
-        if (bdi == null) {
-            bdi = new BanknoteDaoImpl();
-            return bdi;
+        if (banknoteDao == null) {
+            banknoteDao = new BanknoteDaoImpl();
+            return banknoteDao;
         } else {
-            return bdi;
+            return banknoteDao;
         }
     }
 
@@ -78,25 +76,21 @@ public class BanknoteDaoImpl implements BanknoteDao {
     }
 
     @Override
-    public Set<Banknote> getAllBanknotes(int currentPage) {
+    public Set<Banknote> getAllBanknotes(int currentPage, Session session) {
 
-        HibernateUtil hibernateUtil = HibernateUtil.getHibernateUtil();
-        Session session = hibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
+//        HibernateUtil hibernateUtil = HibernateUtil.getHibernateUtil();
+//        Session session = hibernateUtil.getSession();
+//        Transaction transaction = session.beginTransaction();
 
         Criteria criteria = session.createCriteria(org.numisoft.webproject.dto.Banknote.class);
         criteria.createAlias("country", "c");
         criteria.addOrder(Order.asc("c.countryName"));
-//        criteria.addOrder(Order.asc("country"));
         criteria.addOrder(Order.asc("nominal"));
 
         criteria.setFirstResult((currentPage - 1) * Constants.BANKNOTES_PER_PAGE);
         criteria.setMaxResults(Constants.BANKNOTES_PER_PAGE);
 
         Set<Banknote> banknotes = new TreeSet<>(criteria.list());
-
-        transaction.commit();
-        hibernateUtil.closeSession();
 
         return banknotes;
     }

@@ -1,8 +1,12 @@
 package org.numisoft.webproject.services;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.numisoft.webproject.dao.UserDaoImpl;
 import org.numisoft.webproject.dto.Banknote;
 import org.numisoft.webproject.dto.User;
+import org.numisoft.webproject.utils.HibernateUtil;
 
 import java.util.Set;
 
@@ -25,14 +29,34 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-        private UserDaoImpl userDao = UserDaoImpl.getInstance();
+    private UserDaoImpl userDao = UserDaoImpl.getInstance();
 
     public User getUserById(int id) {
         return userDao.getUserById(id);
     }
 
     public int authenticate(String username, String password) {
-        return userDao.authenticate(username, password);
+
+        HibernateUtil hibernateUtil = HibernateUtil.getHibernateUtil();
+        Session session = hibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+
+        UserDaoImpl userDao = UserDaoImpl.getInstance();
+
+        User user = userDao.getUserByName(username, session);
+
+        transaction.commit();
+        hibernateUtil.closeSession();
+
+        if (user == null) {
+            return -1;
+        } else if (password.equalsIgnoreCase(user.getPassword())) {
+            return user.getId();
+
+        } else {
+            return -1;
+        }
+
     }
 
     public Set<Banknote> getUserCollection(int user_id) {

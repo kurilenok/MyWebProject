@@ -12,22 +12,22 @@ import java.util.TreeSet;
 
 /**
  * Implementation of UserDao
- *
- * */
+ */
 
 public class UserDaoImpl implements UserDao {
 
-    private static UserDaoImpl udi;
+    private static UserDaoImpl userDao;
 
-    private UserDaoImpl() {}
+    private UserDaoImpl() {
+    }
 
 
     public static UserDaoImpl getInstance() {
-        if (udi == null) {
-            udi = new UserDaoImpl();
-            return udi;
+        if (userDao == null) {
+            userDao = new UserDaoImpl();
+            return userDao;
         } else {
-            return udi;
+            return userDao;
         }
     }
 
@@ -41,30 +41,20 @@ public class UserDaoImpl implements UserDao {
 
         hibernateUtil.closeSession();
 
-        return  user;
+        return user;
     }
 
     @Override
-    public int authenticate(String username, String password) {
-
-        HibernateUtil hibernateUtil = HibernateUtil.getHibernateUtil();
-        Session session = hibernateUtil.getSession();
+    public User getUserByName(String userName, Session session) {
 
         String hql = "from User u where u.username=:uname";
         Query query = session.createQuery(hql);
-        query.setParameter("uname", username);
-        User u = (User) query.uniqueResult();
+        query.setParameter("uname", userName);
+        User user = (User) query.uniqueResult();
 
-        hibernateUtil.closeSession();
-
-        if (password.equalsIgnoreCase(u.getPassword())) {
-            return u.getId();
-
-        } else {
-            return -1;
-        }
-
+        return user;
     }
+
 
     @Override
     public Set<Banknote> getUserCollection(int user_id) {

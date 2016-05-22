@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.numisoft.webproject.dao.BanknoteDaoImpl;
 import org.numisoft.webproject.dao.CountryDaoImpl;
+import org.numisoft.webproject.dao.UserDaoImpl;
 import org.numisoft.webproject.dto.Banknote;
 import org.numisoft.webproject.dto.Country;
 import org.numisoft.webproject.utils.HibernateUtil;
@@ -36,8 +37,19 @@ public class BanknoteServiceImpl implements BanknoteService {
         return banknoteDao.getBanknoteById(id);
     }
 
+
     public Set<Banknote> getAllBanknotes(int page) {
-        return banknoteDao.getAllBanknotes(page);
+
+        HibernateUtil hibernateUtil = HibernateUtil.getHibernateUtil();
+        Session session = hibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+
+        Set<Banknote> banknotes = BanknoteDaoImpl.getInstance().getAllBanknotes(page, session);
+
+        transaction.commit();
+        hibernateUtil.closeSession();
+
+        return banknotes;
     }
 
     public long calculateMaxPages() {

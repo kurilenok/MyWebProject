@@ -13,11 +13,10 @@ public class UserDaoImplTest extends TestCase {
     @Test
     public void test() {
 
-        UserDaoImpl udi = UserDaoImpl.getInstance();
-        assertEquals(4, udi.authenticate("admin", "admin"));
-        assertTrue(udi.getUserCollection(2).size() > 0);
-        assertTrue(udi.addBanknoteToCollection(4, 25));
-        assertTrue(udi.removeBanknoteFromCollection(4, 25));
+        UserDaoImpl userDao = UserDaoImpl.getInstance();
+        assertTrue(userDao.getUserCollection(2).size() > 0);
+        assertTrue(userDao.addBanknoteToCollection(4, 25));
+        assertTrue(userDao.removeBanknoteFromCollection(4, 25));
     }
 
 }
