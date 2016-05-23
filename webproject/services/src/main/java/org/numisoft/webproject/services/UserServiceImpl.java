@@ -1,12 +1,8 @@
 package org.numisoft.webproject.services;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.numisoft.webproject.dao.UserDao;
-import org.numisoft.webproject.dao.UserDaoImpl;
 import org.numisoft.webproject.pojos.Banknote;
 import org.numisoft.webproject.pojos.User;
-import org.numisoft.webproject.utils.HibernateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

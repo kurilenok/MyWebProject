@@ -24,7 +24,6 @@ public class UserDaoImplTest extends TestCase {
 
     @Test
     public void test() {
-//        UserDaoImpl userDao = UserDaoImpl.getInstance();
         assertTrue(userDao.getUserCollection(2).size() > 0);
         assertTrue(userDao.getUserById(2).getRole_id() > 0);
         assertTrue(userDao.addBanknoteToCollection(4, 25));

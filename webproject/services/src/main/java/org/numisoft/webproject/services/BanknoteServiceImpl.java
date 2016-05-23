@@ -1,10 +1,9 @@
 package org.numisoft.webproject.services;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.numisoft.webproject.dao.BanknoteDao;
-import org.numisoft.webproject.dao.BanknoteDaoImpl;
+import org.numisoft.webproject.dao.CountryDao;
 import org.numisoft.webproject.dao.CountryDaoImpl;
 import org.numisoft.webproject.pojos.Banknote;
 import org.numisoft.webproject.pojos.Country;
@@ -46,6 +45,9 @@ public class BanknoteServiceImpl implements BanknoteService {
     @Autowired
     private BanknoteDao banknoteDao;
 
+    @Autowired
+    private CountryDao countryDao;
+
 
     @Transactional
     public Banknote getBanknoteById(int id) {
@@ -70,13 +72,12 @@ public class BanknoteServiceImpl implements BanknoteService {
         Session session = hibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
 
-        Country country = CountryDaoImpl.getInstance().getCountryByName(countryName);
+        Country country = countryDao.getCountryByName(countryName);
 
         if (country == null) {
             country = new Country();
             country.setCountryName(countryName);
         }
-
 
         Banknote banknote = new Banknote();
         banknote.setTitle(title);
@@ -95,7 +96,6 @@ public class BanknoteServiceImpl implements BanknoteService {
     public void removeBanknoteFromCatalog(int id) {
         banknoteDao.removeBanknoteFromCatalog(id);
     }
-
 
 
 }

@@ -22,11 +22,12 @@ public class BanknoteServiceImplTest extends TestCase {
     @Test
     public void test() {
 
-//        BanknoteServiceImpl banknoteService = BanknoteServiceImpl.getInstance();
         assertEquals("som", banknoteService.getBanknoteById(25).getTitle());
         assertEquals(10, banknoteService.getBanknoteById(25).getNominal());
         assertTrue(banknoteService.getAllBanknotes(1).size() > 5);
 
-    }
+//        banknoteService.addBanknoteToCatalog("test", 100, "Belarus", "http://");
 
+
+    }
 }

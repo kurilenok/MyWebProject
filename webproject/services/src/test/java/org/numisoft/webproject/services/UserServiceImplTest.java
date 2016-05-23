@@ -23,7 +23,6 @@ public class UserServiceImplTest extends TestCase {
     @Test
     public void test() {
 
-//        UserServiceImpl userService = UserServiceImpl.getInstance();
         assertTrue(userService.getUserCollection(2).size() > 0);
         assertTrue(userService.addBanknoteToCollection(4, 25));
         assertTrue(userService.removeBanknoteFromCollection(4, 25));

@@ -3,17 +3,14 @@ package org.numisoft.webproject.dao;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.numisoft.webproject.pojos.Banknote;
 import org.numisoft.webproject.pojos.Country;
 import org.numisoft.webproject.utils.Constants;
-import org.numisoft.webproject.utils.HibernateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,29 +24,14 @@ import java.util.TreeSet;
 @Repository
 public class BanknoteDaoImpl implements BanknoteDao {
 
+    private BanknoteDaoImpl() {
+    }
+
     @Autowired
     private SessionFactory sessionFactory;
 
-    public BanknoteDaoImpl() {
-    }
-
-
-//    private static BanknoteDaoImpl banknoteDao;
-//    public static BanknoteDaoImpl getInstance() {
-//        if (banknoteDao == null) {
-//            banknoteDao = new BanknoteDaoImpl();
-//            return banknoteDao;
-//        } else {
-//            return banknoteDao;
-//        }
-//    }
-
     @Override
     public Banknote getBanknoteById(int id) {
-
-//        HibernateUtil hibernateUtil = HibernateUtil.getHibernateUtil();
-//        Session session = hibernateUtil.getSession();
-//        Transaction transaction = session.beginTransaction();
 
         Session session = sessionFactory.getCurrentSession();
 
@@ -58,19 +40,12 @@ public class BanknoteDaoImpl implements BanknoteDao {
 
         Banknote banknote = (Banknote) c.uniqueResult();
 
-//        transaction.commit();
-//        hibernateUtil.closeSession();
-
         return banknote;
     }
 
 
     @Override
     public long calculateMaxPages() {
-
-//        HibernateUtil hibernateUtil = HibernateUtil.getHibernateUtil();
-//        Session session = hibernateUtil.getSession();
-//        Transaction transaction = session.beginTransaction();
 
         Session session = sessionFactory.getCurrentSession();
 
@@ -81,9 +56,6 @@ public class BanknoteDaoImpl implements BanknoteDao {
         long maxPages = (result % Constants.BANKNOTES_PER_PAGE == 0) ?
                 (result / Constants.BANKNOTES_PER_PAGE) :
                 (result / Constants.BANKNOTES_PER_PAGE + 1);
-
-//        transaction.commit();
-//        hibernateUtil.closeSession();
 
         return maxPages;
     }
@@ -110,10 +82,6 @@ public class BanknoteDaoImpl implements BanknoteDao {
     @Override
     public void addBanknoteToCatalog(String title, int nominal, String countryName, String link) {
 
-//        HibernateUtil hibernateUtil = HibernateUtil.getHibernateUtil();
-//        Session session = hibernateUtil.getSession();
-//        Transaction transaction = session.beginTransaction();
-
         Session session = sessionFactory.getCurrentSession();
 
         Criteria c = session.createCriteria(org.numisoft.webproject.pojos.Country.class);
@@ -138,27 +106,16 @@ public class BanknoteDaoImpl implements BanknoteDao {
 
         session.persist(banknote);
 
-//        transaction.commit();
-//        hibernateUtil.closeSession();
-
     }
 
     @Override
     public void removeBanknoteFromCatalog(int id) {
-
-//        HibernateUtil hibernateUtil = HibernateUtil.getHibernateUtil();
-//        Session session = hibernateUtil.getSession();
-//        Transaction transaction = session.beginTransaction();
 
         Session session = sessionFactory.getCurrentSession();
 
         Banknote banknote = (Banknote) session.load(org.numisoft.webproject.pojos.Banknote.class, id);
         session.delete(banknote);
 
-//        transaction.commit();
-//        hibernateUtil.closeSession();
     }
-
-
 
 }

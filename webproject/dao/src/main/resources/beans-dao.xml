@@ -36,9 +36,11 @@
     </bean>
 
 
+
     <bean id="userDao" class="org.numisoft.webproject.dao.UserDaoImpl"/>
     <bean id="banknoteDao" class="org.numisoft.webproject.dao.BanknoteDaoImpl"/>
     <bean id="countryDao" class="org.numisoft.webproject.dao.CountryDaoImpl"/>
+
 
     <context:annotation-config/>
     <context:component-scan base-package="org.numisoft.webproject.dao"/>

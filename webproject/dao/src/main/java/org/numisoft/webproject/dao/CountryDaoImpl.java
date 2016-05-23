@@ -14,21 +14,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CountryDaoImpl implements CountryDao {
 
-    public CountryDaoImpl() {
+    private CountryDaoImpl() {
     }
 
     @Autowired
     private SessionFactory sessionFactory;
 
-    private static CountryDaoImpl countryDao;
-    public static CountryDaoImpl getInstance() {
-        if (countryDao == null) {
-            countryDao = new CountryDaoImpl();
-            return countryDao;
-        } else {
-            return countryDao;
-        }
-    }
 
     @Override
     public Country getCountryByName(String countryName) {
