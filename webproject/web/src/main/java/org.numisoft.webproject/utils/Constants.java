@@ -1,4 +1,4 @@
-package org.numisoft.webproject.web.utils;
+package org.numisoft.webproject.utils;
 
 import java.util.ResourceBundle;
 

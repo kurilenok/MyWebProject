@@ -1,9 +1,9 @@
-package org.numisoft.webproject.web.servlets;
+package org.numisoft.webproject.servlets;
 
 
 import org.apache.log4j.Logger;
 import org.numisoft.webproject.services.BanknoteServiceImpl;
-import org.numisoft.webproject.web.utils.Constants;
+import org.numisoft.webproject.utils.Constants;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

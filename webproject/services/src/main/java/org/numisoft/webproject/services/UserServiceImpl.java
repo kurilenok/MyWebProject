@@ -1,23 +1,29 @@
 package org.numisoft.webproject.services;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.numisoft.webproject.dao.UserDao;
 import org.numisoft.webproject.dao.UserDaoImpl;
-import org.numisoft.webproject.dto.Banknote;
-import org.numisoft.webproject.dto.User;
+import org.numisoft.webproject.pojos.Banknote;
+import org.numisoft.webproject.pojos.User;
 import org.numisoft.webproject.utils.HibernateUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
 /**
  * UserServiceImpl is a Service class for User entity
  */
+@Service
 public class UserServiceImpl implements UserService {
+
+
 
     private static UserServiceImpl userServiceImpl;
 
-    private UserServiceImpl() {
+    public UserServiceImpl() {
     }
 
     public static UserServiceImpl getInstance() {
@@ -29,24 +35,21 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private UserDaoImpl userDao = UserDaoImpl.getInstance();
+    @Autowired
+    private UserDao userDao;
 
+    @Transactional
     public User getUserById(int id) {
         return userDao.getUserById(id);
     }
 
+    @Transactional
     public int authenticate(String username, String password) {
 
-        HibernateUtil hibernateUtil = HibernateUtil.getHibernateUtil();
-        Session session = hibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
+//        UserDaoImpl userDao = UserDaoImpl.getInstance();
 
-        UserDaoImpl userDao = UserDaoImpl.getInstance();
+        User user = userDao.getUserByName(username);
 
-        User user = userDao.getUserByName(username, session);
-
-        transaction.commit();
-        hibernateUtil.closeSession();
 
         if (user == null) {
             return -1;
@@ -59,14 +62,17 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Transactional
     public Set<Banknote> getUserCollection(int user_id) {
         return userDao.getUserCollection(user_id);
     }
 
+    @Transactional
     public boolean addBanknoteToCollection(int user_id, int banknote_id) {
         return userDao.addBanknoteToCollection(user_id, banknote_id);
     }
 
+    @Transactional
     public boolean removeBanknoteFromCollection(int user_id, int banknote_id) {
         return userDao.removeBanknoteFromCollection(user_id, banknote_id);
     }

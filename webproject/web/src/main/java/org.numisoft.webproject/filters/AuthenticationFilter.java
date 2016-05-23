@@ -1,4 +1,4 @@
-package org.numisoft.webproject.web.filters;
+package org.numisoft.webproject.filters;
 
 
 import javax.servlet.*;

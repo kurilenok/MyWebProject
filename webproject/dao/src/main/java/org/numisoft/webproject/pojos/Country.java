@@ -1,6 +1,7 @@
-package org.numisoft.webproject.dto;
+package org.numisoft.webproject.pojos;
 
 import org.hibernate.annotations.Proxy;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "countries")
 @Proxy(lazy = false)
+@Component
 public class Country implements Serializable {
 
     @Id

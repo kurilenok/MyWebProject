@@ -1,8 +1,10 @@
-package org.numisoft.webproject.web.servlets;
+package org.numisoft.webproject.servlets;
 
 import org.apache.log4j.Logger;
+import org.numisoft.webproject.services.BanknoteService;
 import org.numisoft.webproject.services.BanknoteServiceImpl;
-import org.numisoft.webproject.web.utils.Constants;
+import org.numisoft.webproject.utils.Constants;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +20,7 @@ import java.io.IOException;
 
 public class DeleteFromCatalogServlet extends HttpServlet {
 
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -25,6 +28,8 @@ public class DeleteFromCatalogServlet extends HttpServlet {
         Logger logger = Logger.getLogger(DeleteFromCatalogServlet.class);
 
         int id = Integer.parseInt(request.getParameter("id"));
+
+
 
         BanknoteServiceImpl banknoteServiceImpl = BanknoteServiceImpl.getInstance();
         banknoteServiceImpl.removeBanknoteFromCatalog(id);

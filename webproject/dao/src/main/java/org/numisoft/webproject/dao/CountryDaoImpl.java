@@ -2,21 +2,25 @@ package org.numisoft.webproject.dao;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import org.numisoft.webproject.dto.Country;
-
-import java.util.List;
+import org.numisoft.webproject.pojos.Country;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  * Created by kukolka on 16.05.16.
  */
+@Repository
 public class CountryDaoImpl implements CountryDao {
 
-    private static CountryDaoImpl countryDao;
-
-    private CountryDaoImpl() {
+    public CountryDaoImpl() {
     }
 
+    @Autowired
+    private SessionFactory sessionFactory;
+
+    private static CountryDaoImpl countryDao;
     public static CountryDaoImpl getInstance() {
         if (countryDao == null) {
             countryDao = new CountryDaoImpl();
@@ -27,9 +31,11 @@ public class CountryDaoImpl implements CountryDao {
     }
 
     @Override
-    public Country getCountryByName(String countryName, Session session) {
+    public Country getCountryByName(String countryName) {
 
-        Criteria criteria = session.createCriteria(org.numisoft.webproject.dto.Country.class);
+        Session session = sessionFactory.getCurrentSession();
+
+        Criteria criteria = session.createCriteria(org.numisoft.webproject.pojos.Country.class);
         criteria.add(Restrictions.like("countryName", countryName));
         return (Country) criteria.uniqueResult();
 

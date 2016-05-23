@@ -1,10 +1,9 @@
 package org.numisoft.webproject.dao;
 
 import org.hibernate.Session;
-import org.numisoft.webproject.dto.Banknote;
-import org.numisoft.webproject.dto.User;
+import org.numisoft.webproject.pojos.Banknote;
+import org.numisoft.webproject.pojos.User;
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -16,7 +15,7 @@ public interface UserDao {
 
 	User getUserById(int id);
 
-	User getUserByName(String userName, Session session);
+	User getUserByName(String userName);
 
 	Set<Banknote> getUserCollection(int user_id);
 

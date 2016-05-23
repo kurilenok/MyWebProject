@@ -1,9 +1,9 @@
-package org.numisoft.webproject.web.servlets;
+package org.numisoft.webproject.servlets;
 
 
 
 import org.apache.log4j.Logger;
-import org.numisoft.webproject.dto.User;
+import org.numisoft.webproject.pojos.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

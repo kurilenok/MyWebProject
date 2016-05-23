@@ -1,6 +1,7 @@
-package org.numisoft.webproject.dto;
+package org.numisoft.webproject.pojos;
 
 import org.hibernate.annotations.Proxy;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,7 +15,7 @@ import java.util.TreeSet;
 @Entity
 @Table(name = "users")
 @Proxy(lazy = false)
-
+@Component
 public class User implements Serializable {
 
     @Id

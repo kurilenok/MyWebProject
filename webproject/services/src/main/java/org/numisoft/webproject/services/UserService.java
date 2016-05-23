@@ -1,7 +1,7 @@
 package org.numisoft.webproject.services;
 
-import org.numisoft.webproject.dto.Banknote;
-import org.numisoft.webproject.dto.User;
+import org.numisoft.webproject.pojos.Banknote;
+import org.numisoft.webproject.pojos.User;
 
 import java.util.Set;
 

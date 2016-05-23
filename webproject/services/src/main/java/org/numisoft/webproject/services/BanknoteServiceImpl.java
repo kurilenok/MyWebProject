@@ -1,24 +1,29 @@
 package org.numisoft.webproject.services;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.numisoft.webproject.dao.BanknoteDao;
 import org.numisoft.webproject.dao.BanknoteDaoImpl;
 import org.numisoft.webproject.dao.CountryDaoImpl;
-import org.numisoft.webproject.dao.UserDaoImpl;
-import org.numisoft.webproject.dto.Banknote;
-import org.numisoft.webproject.dto.Country;
+import org.numisoft.webproject.pojos.Banknote;
+import org.numisoft.webproject.pojos.Country;
 import org.numisoft.webproject.utils.HibernateUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
 /**
  * BanknoteServiceImpl is a Service class for Banknote entity
  */
+@Service
 public class BanknoteServiceImpl implements BanknoteService {
 
     private static BanknoteServiceImpl banknoteService;
 
-    private BanknoteServiceImpl() {
+    public BanknoteServiceImpl() {
     }
 
     public static BanknoteServiceImpl getInstance() {
@@ -30,40 +35,42 @@ public class BanknoteServiceImpl implements BanknoteService {
         }
     }
 
-    private BanknoteDaoImpl banknoteDao = BanknoteDaoImpl.getInstance();
+    public BanknoteDao getBanknoteDao() {
+        return banknoteDao;
+    }
+
+    public void setBanknoteDao(BanknoteDao banknoteDao) {
+        this.banknoteDao = banknoteDao;
+    }
+
+    @Autowired
+    private BanknoteDao banknoteDao;
 
 
+    @Transactional
     public Banknote getBanknoteById(int id) {
         return banknoteDao.getBanknoteById(id);
     }
 
-
+    @Transactional
     public Set<Banknote> getAllBanknotes(int page) {
-
-        HibernateUtil hibernateUtil = HibernateUtil.getHibernateUtil();
-        Session session = hibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
-
-        Set<Banknote> banknotes = BanknoteDaoImpl.getInstance().getAllBanknotes(page, session);
-
-        transaction.commit();
-        hibernateUtil.closeSession();
-
+        Set<Banknote> banknotes = banknoteDao.getAllBanknotes(page);
         return banknotes;
     }
 
+    @Transactional
     public long calculateMaxPages() {
         return banknoteDao.calculateMaxPages();
     }
 
-
+    @Transactional
     public void addBanknoteToCatalog(String title, int nominal, String countryName, String link) {
 
         HibernateUtil hibernateUtil = HibernateUtil.getHibernateUtil();
         Session session = hibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
 
-        Country country = CountryDaoImpl.getInstance().getCountryByName(countryName, session);
+        Country country = CountryDaoImpl.getInstance().getCountryByName(countryName);
 
         if (country == null) {
             country = new Country();
@@ -84,7 +91,7 @@ public class BanknoteServiceImpl implements BanknoteService {
 
     }
 
-
+    @Transactional
     public void removeBanknoteFromCatalog(int id) {
         banknoteDao.removeBanknoteFromCatalog(id);
     }
