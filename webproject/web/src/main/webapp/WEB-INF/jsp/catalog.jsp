@@ -53,7 +53,7 @@
             <b>Page ${i.index}</b>&nbsp;&nbsp;-&nbsp;
         </c:when>
         <c:otherwise>
-            <a href="/webproject/index?page=${i.index}">Page ${i.index}</a>&nbsp;&nbsp;-&nbsp;
+            <a href="/webproject/catalog?page=${i.index}">Page ${i.index}</a>&nbsp;&nbsp;-&nbsp;
         </c:otherwise>
     </c:choose>
 </c:forEach>
@@ -88,7 +88,7 @@
             <b>Page ${i.index}</b>&nbsp;&nbsp;-&nbsp;
         </c:when>
         <c:otherwise>
-            <a href="/webproject/index?page=${i.index}">Page ${i.index}</a>&nbsp;&nbsp;-&nbsp;
+            <a href="/webproject/catalog?page=${i.index}">Page ${i.index}</a>&nbsp;&nbsp;-&nbsp;
         </c:otherwise>
     </c:choose>
 </c:forEach>

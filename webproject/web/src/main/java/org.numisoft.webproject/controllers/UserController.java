@@ -1,5 +1,6 @@
 package org.numisoft.webproject.controllers;
 
+import org.apache.tools.ant.taskdefs.condition.Http;
 import org.numisoft.webproject.pojos.User;
 import org.numisoft.webproject.services.BanknoteService;
 import org.numisoft.webproject.services.UserService;
@@ -25,7 +26,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-
     @Autowired
     BanknoteService banknoteService;
 
@@ -35,7 +35,6 @@ public class UserController {
         modelMap.put("user", user);
         return "index";
     }
-
 
     @RequestMapping(value = "/login")
     public String checkLogin(ModelMap modelMap, @ModelAttribute User user, HttpSession httpSession) {
@@ -54,22 +53,20 @@ public class UserController {
         user = userService.getUserById(id);
 
         if (user.getRole_id() == 1) {
-
-            modelMap.put("banknotes", banknoteService.getAllBanknotes(1));
-            modelMap.put("currentPage", 1);
-            modelMap.put("maxPages", banknoteService.calculateMaxPages());
-
-            return "catalog";
+            /* User == ADMIN */
+            return "redirect:/catalog";
         } else {
+            /*User != ADMIN */
+            httpSession.setAttribute("user", user);
             return "redirect:/collection";
         }
-
     }
 
-    @RequestMapping(value = "/collection")
-    public String collection() {
-        return "catalog";
+    @RequestMapping("/logout")
+    public String logout(ModelMap modelMap, HttpSession httpSession) {
+        httpSession.invalidate();
+        modelMap.put("user", user);
+        return "index";
     }
-
 
 }

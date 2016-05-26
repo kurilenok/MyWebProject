@@ -23,14 +23,14 @@
         <th></th>
     </tr>
     <c:set var="i" scope="page" value="0"/>
-    <c:forEach var="s" items="${requestScope.collectibles}">
+    <c:forEach var="s" items="${requestScope.collection}">
         <tr>
                 <c:set var="i" value="${i + 1}" scope="page"/>
             <td><c:out value="${i}"/>
             <td><c:out value="${s.getNominal()}"/>&nbsp;<c:out value="${s.getTitle()}"/>
             <td><c:out value="${s.getCountry()}"/>
             <td><img src="${s.getLink()}" alt="Image for ${s.getTitle()}" width="250"></td>
-            <td><a href="/webproject/unsubscribe?id=${s.getId()}">Delete</a></td>
+            <td><a href="/webproject/uncollect?id=${s.getId()}">Delete</a></td>
         <tr/>
     </c:forEach>
 </table>
@@ -44,7 +44,7 @@
             <b>Page ${p.index}</b>&nbsp;&nbsp;-&nbsp;
         </c:when>
         <c:otherwise>
-            <a href="/webproject/index?page=${p.index}">Page ${p.index}</a>&nbsp;&nbsp;-&nbsp;
+            <a href="/webproject/collection?page=${p.index}">Page ${p.index}</a>&nbsp;&nbsp;-&nbsp;
         </c:otherwise>
     </c:choose>
 </c:forEach>
@@ -67,7 +67,7 @@
             <td><c:out value="${b.getNominal()}"/>&nbsp;<c:out value="${b.getTitle()}"/>
             <td><c:out value="${b.getCountry()}"/>
             <td><img src="${b.getLink()}" alt="Image for ${b.getTitle()}" width="250"></td>
-            <td><a href="/webproject/subscribe?id=${b.getId()}">Add</a></td>
+            <td><a href="/webproject/collect?id=${b.getId()}">Add</a></td>
         <tr/>
     </c:forEach>
 </table>
@@ -79,7 +79,7 @@
             <b>Page ${p.index}</b>&nbsp;&nbsp;-&nbsp;
         </c:when>
         <c:otherwise>
-            <a href="/webproject/index?page=${p.index}">Page ${p.index}</a>&nbsp;&nbsp;-&nbsp;
+            <a href="/webproject/collection?page=${p.index}">Page ${p.index}</a>&nbsp;&nbsp;-&nbsp;
         </c:otherwise>
     </c:choose>
 </c:forEach>
