@@ -1,13 +1,9 @@
 package org.numisoft.webproject.services;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.numisoft.webproject.dao.BanknoteDao;
 import org.numisoft.webproject.dao.CountryDao;
-import org.numisoft.webproject.dao.CountryDaoImpl;
 import org.numisoft.webproject.pojos.Banknote;
 import org.numisoft.webproject.pojos.Country;
-import org.numisoft.webproject.utils.HibernateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +44,12 @@ public class BanknoteServiceImpl implements BanknoteService {
     @Autowired
     private CountryDao countryDao;
 
+    @Autowired
+    private Country country;
+
+    @Autowired
+    private Banknote banknote;
+
 
     @Transactional
     public Banknote getBanknoteById(int id) {
@@ -68,27 +70,20 @@ public class BanknoteServiceImpl implements BanknoteService {
     @Transactional
     public void addBanknoteToCatalog(String title, int nominal, String countryName, String link) {
 
-        HibernateUtil hibernateUtil = HibernateUtil.getHibernateUtil();
-        Session session = hibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
-
-        Country country = countryDao.getCountryByName(countryName);
+        country = countryDao.getCountryByName(countryName);
 
         if (country == null) {
             country = new Country();
             country.setCountryName(countryName);
         }
 
-        Banknote banknote = new Banknote();
+        banknote = new Banknote();
         banknote.setTitle(title);
         banknote.setNominal(nominal);
         banknote.setCountry(country);
         banknote.setLink(link);
 
-        session.persist(banknote);
-
-        transaction.commit();
-        hibernateUtil.closeSession();
+        banknoteDao.addBanknoteToCatalog(banknote);
 
     }
 

@@ -26,7 +26,7 @@ public interface BanknoteDao {
 	/**
 	 * Adds new item to General Catalog
 	 * */
-	void addBanknoteToCatalog(String title, int nominal, String country, String link);
+	void addBanknoteToCatalog(Banknote banknote);
 
 	/**
 	 * Deletes item from General Catalog

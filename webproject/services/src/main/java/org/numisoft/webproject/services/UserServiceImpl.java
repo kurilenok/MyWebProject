@@ -42,8 +42,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public int authenticate(String username, String password) {
 
-//        UserDaoImpl userDao = UserDaoImpl.getInstance();
-
         User user = userDao.getUserByName(username);
 
 

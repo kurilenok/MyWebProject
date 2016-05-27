@@ -41,6 +41,8 @@
     <bean id="banknoteDao" class="org.numisoft.webproject.dao.BanknoteDaoImpl"/>
     <bean id="countryDao" class="org.numisoft.webproject.dao.CountryDaoImpl"/>
 
+    <bean id="banknote" class="org.numisoft.webproject.pojos.Banknote"/>
+    <bean id="country" class="org.numisoft.webproject.pojos.Country"/>
 
     <context:annotation-config/>
     <context:component-scan base-package="org.numisoft.webproject.dao"/>

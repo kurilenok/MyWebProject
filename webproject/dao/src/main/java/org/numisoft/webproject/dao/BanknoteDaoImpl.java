@@ -7,13 +7,10 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.numisoft.webproject.pojos.Banknote;
-import org.numisoft.webproject.pojos.Country;
 import org.numisoft.webproject.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -80,31 +77,11 @@ public class BanknoteDaoImpl implements BanknoteDao {
 
 
     @Override
-    public void addBanknoteToCatalog(String title, int nominal, String countryName, String link) {
+    public void addBanknoteToCatalog(Banknote banknote) {
 
         Session session = sessionFactory.getCurrentSession();
 
-        Criteria c = session.createCriteria(org.numisoft.webproject.pojos.Country.class);
-        c.add(Restrictions.like("countryName", countryName));
-        List countries = (ArrayList<Country>) c.list();
-
-        Country country;
-
-        if (countries.size() != 0) {
-            int country_id = ((Country) countries.get(0)).getId();
-            country = (Country) session.load(org.numisoft.webproject.pojos.Country.class, country_id);
-        } else {
-            country = new Country();
-            country.setCountryName(countryName);
-        }
-
-        Banknote banknote = new Banknote();
-        banknote.setTitle(title);
-        banknote.setNominal(nominal);
-        banknote.setCountry(country);
-        banknote.setLink(link);
-
-        session.persist(banknote);
+        session.saveOrUpdate(banknote);
 
     }
 

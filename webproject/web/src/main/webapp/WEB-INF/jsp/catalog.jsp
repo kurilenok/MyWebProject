@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags/form" %>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -23,7 +26,8 @@
     }
 </script>
 
-<form name="Form" action="/webproject/add" method="post" onsubmit="validateForm()">
+<s:form name="Form" action="/webproject/add" method="post"
+        modelAttribute="banknoteDto" onsubmit="validateForm()">
     <table border="1px">
         <tr bgcolor="#ccc">
             <th>Country</th>
@@ -32,14 +36,14 @@
             <th>Image link</th>
         </tr>
         <tr>
-            <td><input name="country" type="text" size="6" required></td>
-            <td><input name="nominal" type="text" size="3" pattern="^[1-9]\d*$" required></td>
-            <td><input name="title" type="text" size="3" required></td>
-            <td><input name="link" type="text" size="18" required></td>
+            <td><s:input path="country" name="country" type="text" size="6" required="true"/></td>
+            <td><s:input path="nominal" name="nominal" type="text" size="3" pattern="^[1-9]\d*$" required="true"/></td>
+            <td><s:input path="title" name="title" type="text" size="3" required="true"/></td>
+            <td><s:input path="link" name="link" type="text" size="18" required="true"/></td>
         </tr>
     </table>
     <input type="submit" value="Add">
-</form>
+</s:form>
 
 <br/>
 

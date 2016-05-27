@@ -26,7 +26,7 @@ public class BanknoteServiceImplTest extends TestCase {
         assertEquals(10, banknoteService.getBanknoteById(25).getNominal());
         assertTrue(banknoteService.getAllBanknotes(1).size() > 5);
 
-//        banknoteService.addBanknoteToCatalog("test", 100, "Belarus", "http://");
+        banknoteService.addBanknoteToCatalog("test", 100, "Belarus", "http://");
 
 
     }

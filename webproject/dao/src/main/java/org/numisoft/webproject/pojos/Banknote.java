@@ -22,8 +22,9 @@ public class Banknote implements Serializable, Comparable<Banknote> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "country_id")
+    @org.hibernate.annotations.Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Country country;
 
     @Column
@@ -35,7 +36,7 @@ public class Banknote implements Serializable, Comparable<Banknote> {
     @Column
     private String link;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
     @JoinTable(name = "collections",
             joinColumns = {@JoinColumn(name = "banknote_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")})
