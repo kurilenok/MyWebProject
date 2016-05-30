@@ -10,24 +10,31 @@
                            http://www.springframework.org/schema/context
                            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-    <!--import resource="classpath*:beans-services.xml"/-->
     <import resource="classpath*:beans-dao.xml"/>
     <import resource="classpath*:beans-service.xml"/>
-
-    <!-- Activates various annotations to be detected in bean classes -->
-
-    <!--mvc:resources mapping="/resources/**" location="resources"/-->
-
-    <!--<mvc:default-servlet-handler />-->
 
     <mvc:annotation-driven/>
 
     <context:component-scan base-package="org.numisoft.webproject"/>
 
 
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <!--bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/" />
         <property name="suffix" value=".jsp" />
+    </bean-->
+
+    <bean id="tilesConfigurer"
+          class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>/WEB-INF/tiles.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.tiles2.TilesViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>
     </bean>
 
 

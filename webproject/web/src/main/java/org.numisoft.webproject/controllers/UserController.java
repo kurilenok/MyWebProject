@@ -33,6 +33,7 @@ public class UserController {
     @RequestMapping(value = "/")
     public String index(ModelMap modelMap) {
         modelMap.put("user", user);
+//        return "catalog";
         return "index";
     }
 

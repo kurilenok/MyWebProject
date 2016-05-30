@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -22,7 +23,7 @@ public class CatalogController {
     @Autowired
     BanknoteDto banknoteDto;
 
-    @RequestMapping("/catalog")
+    @RequestMapping(value = "/catalog", method = {RequestMethod.GET, RequestMethod.POST})
     public String showCatalog(ModelMap modelMap,
                               @RequestParam(value = "page", defaultValue = "1") Integer page) {
 
@@ -35,7 +36,7 @@ public class CatalogController {
         return "catalog";
     }
 
-    @RequestMapping("/delete")
+    @RequestMapping(value = "/delete", method = {RequestMethod.GET, RequestMethod.POST})
     public String removeFromCatalog(ModelMap modelMap,
                                     @RequestParam(value = "id", defaultValue = "0") Integer banknote_id) {
 
@@ -44,7 +45,7 @@ public class CatalogController {
     }
 
 
-    @RequestMapping("/add")
+    @RequestMapping(value = "/add", method = {RequestMethod.GET, RequestMethod.POST})
     public String addToCatalog(ModelMap modelMap, @ModelAttribute BanknoteDto banknoteDto) {
 
         String title = ((BanknoteDto) modelMap.get("banknoteDto")).getTitle();
