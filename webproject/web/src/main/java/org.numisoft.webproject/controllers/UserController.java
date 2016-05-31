@@ -1,18 +1,15 @@
 package org.numisoft.webproject.controllers;
 
-import org.apache.tools.ant.taskdefs.condition.Http;
 import org.numisoft.webproject.pojos.User;
 import org.numisoft.webproject.services.BanknoteService;
 import org.numisoft.webproject.services.UserService;
-import org.numisoft.webproject.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 
@@ -33,11 +30,34 @@ public class UserController {
     @RequestMapping(value = "/")
     public String index(ModelMap modelMap) {
         modelMap.put("user", user);
-//        return "catalog";
-        return "index";
+        return "forward:/sortUser";
     }
 
-    @RequestMapping(value = "/login")
+
+    @RequestMapping(value = "/sortUser")
+    public String sortUser(ModelMap modelMap, HttpSession httpSession) {
+
+        modelMap.get("user");
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        user = userService.getUserByName(auth.getName());
+
+        if (user == null) {
+            return "login";
+        }
+
+        if (user.getRole().equalsIgnoreCase("ROLE_USER")) {
+            httpSession.setAttribute("user", user);
+            return "redirect:/collection";
+        } else if (user.getRole().equalsIgnoreCase("ROLE_ADMIN")){
+            return "redirect:/catalog";
+        } else return "error";
+
+
+    }
+
+    @RequestMapping(value = "/login2")
+//    @RequestMapping(value = "/login")
     public String checkLogin(ModelMap modelMap, @ModelAttribute User user, HttpSession httpSession) {
 
         modelMap.get("user");
@@ -48,7 +68,7 @@ public class UserController {
         int id = userService.authenticate(username, password);
 
         if (id < 0) {
-            return "error";
+            return "error2";
         }
 
         user = userService.getUserById(id);
@@ -63,11 +83,11 @@ public class UserController {
         }
     }
 
-    @RequestMapping("/logout")
-    public String logout(ModelMap modelMap, HttpSession httpSession) {
-        httpSession.invalidate();
-        modelMap.put("user", user);
-        return "index";
-    }
+//    @RequestMapping("/logout")
+//    public String logout(ModelMap modelMap, HttpSession httpSession) {
+//        httpSession.invalidate();
+//        modelMap.put("user", user);
+//        return "index";
+//    }
 
 }

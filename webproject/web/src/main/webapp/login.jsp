@@ -18,19 +18,19 @@
     }
 </script>
 
+<c:url value="/login" var="loginUrl" />
 
-<s:form name="Form" action="/webproject/login" method='POST'
-      modelAttribute="user" onsubmit="validateForm()">
+<form name="Form" action="${loginUrl}" method="post">
     <h4>Username:</h4>
-    <s:input path="username" name="username" type="text" required="true"/>
+    <input name="username" type="text" required="true"/>
     <br/>
     <h4>Password:</h4>
-    <s:input path="password" name="password" type="text" required="true"/>
-    <!--input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/-->
+    <input name="password" type="text" required="true"/>
+    <!-input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/-->
     <br/>
     <br/>
     <input type="submit" value="Log in">
-</s:form>
+</form>
 </body>
 </html>
 

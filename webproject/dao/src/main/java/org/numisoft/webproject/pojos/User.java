@@ -37,6 +37,9 @@ public class User implements Serializable {
     @Column
     private int role_id;
 
+    @Column
+    private String role;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "collections",
             joinColumns = {@JoinColumn(name = "user_id")},
@@ -94,7 +97,15 @@ public class User implements Serializable {
         this.role_id = role_id;
     }
 
-  public Set<Banknote> getBanknotes() {
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Set<Banknote> getBanknotes() {
         return banknotes;
     }
 

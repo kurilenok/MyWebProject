@@ -4,6 +4,9 @@ import org.numisoft.webproject.dao.UserDao;
 import org.numisoft.webproject.pojos.Banknote;
 import org.numisoft.webproject.pojos.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +16,7 @@ import java.util.Set;
  * UserServiceImpl is a Service class for User entity
  */
 @Service
+
 public class UserServiceImpl implements UserService {
 
 
@@ -37,6 +41,11 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User getUserById(int id) {
         return userDao.getUserById(id);
+    }
+
+    @Transactional
+    public User getUserByName(String username) {
+        return userDao.getUserByName(username);
     }
 
     @Transactional
@@ -70,4 +79,6 @@ public class UserServiceImpl implements UserService {
     public boolean removeBanknoteFromCollection(int user_id, int banknote_id) {
         return userDao.removeBanknoteFromCollection(user_id, banknote_id);
     }
+
+
 }

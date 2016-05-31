@@ -4,89 +4,23 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
          http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-
-
-<!--servlet>
-        <servlet-name>Index</servlet-name>
-        <servlet-class>org.numisoft.webproject.org.numisoft.webproject.servlets.IndexServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Index</servlet-name>
-        <url-pattern>/index</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>Unsubscribe</servlet-name>
-        <servlet-class>org.numisoft.webproject.org.numisoft.webproject.servlets.DeleteFromCollectionServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Unsubscribe</servlet-name>
-        <url-pattern>/unsubscribe</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>Subscribe</servlet-name>
-        <servlet-class>org.numisoft.webproject.org.numisoft.webproject.servlets.AddToCollectionServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Subscribe</servlet-name>
-        <url-pattern>/subscribe</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>Login</servlet-name>
-        <servlet-class>org.numisoft.webproject.org.numisoft.webproject.servlets.LoginServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Login</servlet-name>
-        <url-pattern>/login</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>Logout</servlet-name>
-        <servlet-class>org.numisoft.webproject.org.numisoft.webproject.servlets.LogoutServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Logout</servlet-name>
-        <url-pattern>/logout</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>Add</servlet-name>
-        <servlet-class>org.numisoft.webproject.org.numisoft.webproject.servlets.AddToCatalogServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Add</servlet-name>
-        <url-pattern>/add</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>Delete</servlet-name>
-        <servlet-class>org.numisoft.webproject.org.numisoft.webproject.servlets.DeleteFromCatalogServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Delete</servlet-name>
-        <url-pattern>/delete</url-pattern>
-    </servlet-mapping>
-
-    <filter>
-        <filter-name>Authenticate</filter-name>
-        <filter-class>org.numisoft.webproject.org.numisoft.webproject.filters.AuthenticationFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>Authenticate</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping-->
-
-
+    <display-name>Security Demo</display-name>
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            /WEB-INF/dispatcher-servlet.xml
+            /WEB-INF/dispatcher-servlet.xml, /WEB-INF/security-context.xml
         </param-value>
     </context-param>
-
-
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
     <servlet>
         <servlet-name>dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -96,9 +30,8 @@
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-
 </web-app>
+
