@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CountryDaoImpl implements CountryDao {
 
-    private CountryDaoImpl() {
+    public CountryDaoImpl() {
     }
 
     @Autowired

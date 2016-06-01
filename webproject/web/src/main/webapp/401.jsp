@@ -6,8 +6,7 @@
 	<body>
 	<a href="/webproject/login.jsp">Log in</a>
 	<br/>
-		<h1>403 Forbidden</h1>
-		<h4>You are not authorized!</h4>
-
+		<h1>401 Unauthorized</h1>
+		<h4>Username / password failed!</h4>
 	</body>
 </html>

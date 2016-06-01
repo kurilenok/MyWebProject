@@ -17,7 +17,7 @@ import java.util.TreeSet;
 @Repository
 public class UserDaoImpl implements UserDao {
 
-    private UserDaoImpl() {
+    public UserDaoImpl() {
     }
 
     @Autowired

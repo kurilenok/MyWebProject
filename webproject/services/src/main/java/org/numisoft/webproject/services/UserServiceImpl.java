@@ -19,20 +19,7 @@ import java.util.Set;
 
 public class UserServiceImpl implements UserService {
 
-
-
-    private static UserServiceImpl userServiceImpl;
-
     public UserServiceImpl() {
-    }
-
-    public static UserServiceImpl getInstance() {
-        if (userServiceImpl == null) {
-            userServiceImpl = new UserServiceImpl();
-            return userServiceImpl;
-        } else {
-            return userServiceImpl;
-        }
     }
 
     @Autowired

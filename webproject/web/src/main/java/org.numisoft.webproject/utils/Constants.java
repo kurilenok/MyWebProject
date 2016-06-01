@@ -9,9 +9,10 @@ public class Constants {
 
     static ResourceBundle rb = ResourceBundle.getBundle("constants");
 
-    public static final String PATH_TO_INDEX = rb.getString("PATH_TO_INDEX");
-    public static final String PATH_TO_CATALOG = rb.getString("PATH_TO_CATALOG");
-    public static final String PATH_TO_COLLECTION = rb.getString("PATH_TO_COLLECTION");
+    public static final String FORWARD_TO_LOGIN = rb.getString("FORWARD_TO_LOGIN");
+    public static final String REDIRECT_TO_CATALOG = rb.getString("REDIRECT_TO_CATALOG");
+    public static final String REDIRECT_TO_COLLECTION = rb.getString("REDIRECT_TO_COLLECTION");
+    public static final String REDIRECT_TO_400_ERROR = rb.getString("REDIRECT_TO_400_ERROR");
 
 
 }

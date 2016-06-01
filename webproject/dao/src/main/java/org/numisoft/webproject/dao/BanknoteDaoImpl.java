@@ -21,7 +21,7 @@ import java.util.TreeSet;
 @Repository
 public class BanknoteDaoImpl implements BanknoteDao {
 
-    private BanknoteDaoImpl() {
+    public BanknoteDaoImpl() {
     }
 
     @Autowired

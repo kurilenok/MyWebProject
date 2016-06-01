@@ -1,20 +1,28 @@
 package org.numisoft.webproject.controllers;
 
+import org.apache.log4j.Logger;
 import org.numisoft.webproject.pojos.User;
 import org.numisoft.webproject.services.BanknoteService;
 import org.numisoft.webproject.services.UserService;
+import org.numisoft.webproject.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
+import javax.management.RuntimeErrorException;
 import javax.servlet.http.HttpSession;
 
 
 @Controller
 public class UserController {
+
+    Logger logger = Logger.getLogger(UserController.class);
 
     @Autowired
     User user;
@@ -25,13 +33,15 @@ public class UserController {
     @Autowired
     BanknoteService banknoteService;
 
-
+    /* Application entry point */
     @RequestMapping(value = "/")
     public String index() {
         return "forward:/sortUser";
     }
 
 
+    /* Check if User role and redirect accordingly: */
+    /* User --> Collection || Admin --> Catalog */
     @RequestMapping(value = "/sortUser")
     public String sortUser(HttpSession httpSession) {
 
@@ -39,16 +49,27 @@ public class UserController {
         user = userService.getUserByName(auth.getName());
 
         if (user == null) {
-            return "redirect:/login.jsp";
+            return "forward:/login.jsp";
         }
 
         if (user.getRole().equalsIgnoreCase("ROLE_USER")) {
+
             httpSession.setAttribute("user", user);
-            return "redirect:/collection";
-        } else if (user.getRole().equalsIgnoreCase("ROLE_ADMIN")){
-            return "redirect:/catalog";
-        } else return "error";
+            logger.debug("<<@>> User " + user.getUsername() + " logged in");
+
+            return Constants.REDIRECT_TO_COLLECTION;
+
+        } else if (user.getRole().equalsIgnoreCase("ROLE_ADMIN")) {
+
+            logger.debug("<<@>> Admin logged in");
+
+            return Constants.REDIRECT_TO_CATALOG;
+
+        } else return "redirect:/401.jsp";
+
 
     }
+
+
 
 }

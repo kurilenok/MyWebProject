@@ -16,26 +16,7 @@ import java.util.Set;
 @Service
 public class BanknoteServiceImpl implements BanknoteService {
 
-    private static BanknoteServiceImpl banknoteService;
-
     public BanknoteServiceImpl() {
-    }
-
-    public static BanknoteServiceImpl getInstance() {
-        if (banknoteService == null) {
-            banknoteService = new BanknoteServiceImpl();
-            return banknoteService;
-        } else {
-            return banknoteService;
-        }
-    }
-
-    public BanknoteDao getBanknoteDao() {
-        return banknoteDao;
-    }
-
-    public void setBanknoteDao(BanknoteDao banknoteDao) {
-        this.banknoteDao = banknoteDao;
     }
 
     @Autowired

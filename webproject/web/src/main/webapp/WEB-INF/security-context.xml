@@ -12,7 +12,7 @@
         <intercept-url pattern="/catalog**" access="hasRole('ADMIN')"/>
         <intercept-url pattern="/collection**" access="hasRole('USER')"/>
         <form-login login-page="/login.jsp"
-                    authentication-failure-url="/error.jsp"/>
+                    authentication-failure-url="/401.jsp"/>
         <csrf disabled="true"/>
     </http>
 

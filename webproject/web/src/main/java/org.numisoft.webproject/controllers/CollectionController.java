@@ -1,9 +1,11 @@
 package org.numisoft.webproject.controllers;
 
+import org.apache.log4j.Logger;
 import org.numisoft.webproject.pojos.Banknote;
 import org.numisoft.webproject.pojos.User;
 import org.numisoft.webproject.services.BanknoteService;
 import org.numisoft.webproject.services.UserService;
+import org.numisoft.webproject.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +24,8 @@ import java.util.Set;
 @Controller
 public class CollectionController {
 
+    Logger logger = Logger.getLogger(CollectionController.class);
+
     @Autowired
     UserService userService;
 
@@ -31,6 +35,7 @@ public class CollectionController {
     @Autowired
     User user;
 
+    /* User Collection set-up */
     @RequestMapping("/collection")
     public String showCollection(ModelMap modelMap,
                                  @RequestParam(value = "page", defaultValue = "1") int page) {
@@ -53,24 +58,42 @@ public class CollectionController {
         return "collection";
     }
 
-    @RequestMapping("/collect")
-    public String collect(HttpSession httpSession,
-                          @RequestParam(value = "id", defaultValue = "0") int banknote_id) {
+    /* User adds banknote to his Collection */
+    @RequestMapping("/collection/collect")
+    public String collect(@RequestParam(value = "id", defaultValue = "0") int banknote_id) {
 
-        int user_id = ((User) httpSession.getAttribute("user")).getId();
+        if (banknote_id == 0) {
+            return Constants.REDIRECT_TO_400_ERROR;
+        }
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        user = userService.getUserByName(auth.getName());
+
+        int user_id = user.getId();
         userService.addBanknoteToCollection(user_id, banknote_id);
 
-        return "redirect:/collection";
+        logger.debug("<<@>> User " + user.getUsername() + " added banknote id=" + banknote_id );
+
+        return Constants.REDIRECT_TO_COLLECTION;
     }
 
-    @RequestMapping("/uncollect")
-    public String uncollect(HttpSession httpSession,
-                            @RequestParam(value = "id", defaultValue = "0") int banknote_id) {
+    /* User removes banknote from his Collection */
+    @RequestMapping("/collection/uncollect")
+    public String uncollect(@RequestParam(value = "id", defaultValue = "0") int banknote_id) {
 
-        int user_id = ((User) httpSession.getAttribute("user")).getId();
+        if (banknote_id == 0) {
+            return Constants.REDIRECT_TO_400_ERROR;
+        }
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        user = userService.getUserByName(auth.getName());
+
+        int user_id = user.getId();
         userService.removeBanknoteFromCollection(user_id, banknote_id);
 
-        return "redirect:/collection";
+        logger.debug("<<@>> User " + user.getUsername() + " removed banknote id=" + banknote_id );
+
+        return Constants.REDIRECT_TO_COLLECTION;
     }
 
 

@@ -33,7 +33,7 @@
             <td/>
             <c:out value="${s.getCountry()}"/>
             <td><img src="${s.getLink()}" alt="Image for ${s.getTitle()}" width="250"></td>
-            <td><a href="/webproject/uncollect?id=${s.getId()}">Delete</a></td>
+            <td><a href="/webproject/collection/uncollect?id=${s.getId()}">Delete</a></td>
             <tr/>
         </c:forEach>
     </table>
@@ -73,7 +73,7 @@
             <td/>
             <c:out value="${b.getCountry()}"/>
             <td><img src="${b.getLink()}" alt="Image for ${b.getTitle()}" width="250"></td>
-            <td><a href="/webproject/collect?id=${b.getId()}">Add</a></td>
+            <td><a href="/webproject/collection/collect?id=${b.getId()}">Add</a></td>
             <tr/>
         </c:forEach>
     </table>

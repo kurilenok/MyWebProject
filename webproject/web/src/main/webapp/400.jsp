@@ -4,8 +4,6 @@
 
 <html>
 	<body>
-	<a href="/webproject/login.jsp">Log in</a>
-	<br/>
-		<h1>Username / password failed!</h1>
+		<h1>400 Bad Request</h1>
 	</body>
 </html>

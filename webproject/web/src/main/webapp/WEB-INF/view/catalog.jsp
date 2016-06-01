@@ -24,7 +24,7 @@
         }
     </script>
 
-    <s:form name="Form" action="/webproject/add" method="post"
+    <s:form name="Form" action="/webproject/catalog/add" method="post"
             modelAttribute="banknoteDto" onsubmit="validateForm()">
         <table border="1px">
             <tr bgcolor="#ccc">
@@ -82,7 +82,7 @@
             <td/>
             <c:out value="${b.getNominal()}"/>&nbsp;<c:out value="${b.getTitle()}"/>
             <td><img src="${b.getLink()}" alt="Image for ${b.getTitle()}" width="250"/></td>
-            <td><a href="/webproject/delete?id=${b.getId()}">Delete</a></td>
+            <td><a href="/webproject/catalog/delete?id=${b.getId()}">Delete</a></td>
             <tr/>
         </c:forEach>
     </table>
