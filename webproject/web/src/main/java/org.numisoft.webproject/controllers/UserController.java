@@ -6,16 +6,11 @@ import org.numisoft.webproject.services.BanknoteService;
 import org.numisoft.webproject.services.UserService;
 import org.numisoft.webproject.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
-import javax.management.RuntimeErrorException;
 import javax.servlet.http.HttpSession;
 
 

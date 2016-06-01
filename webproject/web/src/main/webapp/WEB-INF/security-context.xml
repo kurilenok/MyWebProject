@@ -10,7 +10,11 @@
         <access-denied-handler error-page="/403.jsp" />
         <intercept-url pattern="/" access="permitAll"/>
         <intercept-url pattern="/catalog**" access="hasRole('ADMIN')"/>
+        <intercept-url pattern="/catalog/add*" access="hasRole('ADMIN')"/>
+        <intercept-url pattern="/catalog/delete*" access="hasRole('ADMIN')"/>
         <intercept-url pattern="/collection**" access="hasRole('USER')"/>
+        <intercept-url pattern="/collection/collect*" access="hasRole('USER')"/>
+        <intercept-url pattern="/collection/uncollect*" access="hasRole('USER')"/>
         <form-login login-page="/login.jsp"
                     authentication-failure-url="/401.jsp"/>
         <csrf disabled="true"/>

@@ -12,11 +12,7 @@ import java.util.Set;
 
 public interface UserService {
 
-    User getUserById(int id);
-
     User getUserByName(String username);
-
-    int authenticate(String username, String password);
 
     Set<Banknote> getUserCollection(int user_id);
 

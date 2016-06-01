@@ -27,19 +27,6 @@ public class BanknoteDaoImpl implements BanknoteDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    @Override
-    public Banknote getBanknoteById(int id) {
-
-        Session session = sessionFactory.getCurrentSession();
-
-        Criteria c = session.createCriteria(org.numisoft.webproject.pojos.Banknote.class);
-        c.add(Restrictions.eq("id", id));
-
-        Banknote banknote = (Banknote) c.uniqueResult();
-
-        return banknote;
-    }
-
 
     @Override
     public long calculateMaxPages() {

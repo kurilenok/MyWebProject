@@ -25,15 +25,6 @@ public class UserDaoImpl implements UserDao {
 
 
     @Override
-    public User getUserById(int id) {
-
-        Session session = sessionFactory.getCurrentSession();
-
-        User user = (User) session.load(org.numisoft.webproject.pojos.User.class, id);
-        return user;
-    }
-
-    @Override
     public User getUserByName(String userName) {
 
         Session session = sessionFactory.getCurrentSession();

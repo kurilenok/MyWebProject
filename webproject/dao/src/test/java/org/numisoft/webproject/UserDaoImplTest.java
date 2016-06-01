@@ -23,8 +23,8 @@ public class UserDaoImplTest extends TestCase {
 
     @Test
     public void test() {
+        assertNotNull(userDao.getUserByName("alku"));
         assertTrue(userDao.getUserCollection(2).size() > 0);
-        assertTrue(userDao.getUserById(2).getRole_id() > 0);
         assertTrue(userDao.addBanknoteToCollection(4, 25));
         assertTrue(userDao.removeBanknoteFromCollection(4, 25));
     }

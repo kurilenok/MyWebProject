@@ -9,8 +9,6 @@ import java.util.Set;
  */
 public interface BanknoteService {
 
-    Banknote getBanknoteById(int id);
-
     /**
      * This method gets all items from Catalog
      * and provides data for pagination:

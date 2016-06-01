@@ -33,11 +33,6 @@ public class BanknoteServiceImpl implements BanknoteService {
 
 
     @Transactional
-    public Banknote getBanknoteById(int id) {
-        return banknoteDao.getBanknoteById(id);
-    }
-
-    @Transactional
     public Set<Banknote> getAllBanknotes(int page) {
         Set<Banknote> banknotes = banknoteDao.getAllBanknotes(page);
         return banknotes;

@@ -26,30 +26,8 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Transactional
-    public User getUserById(int id) {
-        return userDao.getUserById(id);
-    }
-
-    @Transactional
     public User getUserByName(String username) {
         return userDao.getUserByName(username);
-    }
-
-    @Transactional
-    public int authenticate(String username, String password) {
-
-        User user = userDao.getUserByName(username);
-
-
-        if (user == null) {
-            return -1;
-        } else if (password.equalsIgnoreCase(user.getPassword())) {
-            return user.getId();
-
-        } else {
-            return -1;
-        }
-
     }
 
     @Transactional

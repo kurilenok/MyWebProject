@@ -26,7 +26,6 @@ public class UserServiceImplTest extends TestCase {
         assertTrue(userService.getUserCollection(2).size() > 0);
         assertTrue(userService.addBanknoteToCollection(4, 25));
         assertTrue(userService.removeBanknoteFromCollection(4, 25));
-        assertEquals(4, userService.authenticate("admin", "admin"));
 
     }
 
