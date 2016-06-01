@@ -6,6 +6,6 @@
 	<body>
 	<a href="/webproject/login.jsp">Log in</a>
 	<br/>
-		<h1>Username / password failed!</h1>
+		<h1>You are not authorized!</h1>
 	</body>
 </html>

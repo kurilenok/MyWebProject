@@ -23,29 +23,27 @@ public class CatalogController {
     @Autowired
     BanknoteDto banknoteDto;
 
-    @RequestMapping(value = "/catalog", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/catalog")
     public String showCatalog(ModelMap modelMap,
                               @RequestParam(value = "page", defaultValue = "1") Integer page) {
 
         modelMap.put("banknotes", banknoteService.getAllBanknotes(page));
         modelMap.put("currentPage", page);
         modelMap.put("maxPages", banknoteService.calculateMaxPages());
-
         modelMap.put("banknoteDto", banknoteDto);
 
         return "catalog";
     }
 
-    @RequestMapping(value = "/delete", method = {RequestMethod.GET, RequestMethod.POST})
-    public String removeFromCatalog(ModelMap modelMap,
-                                    @RequestParam(value = "id", defaultValue = "0") Integer banknote_id) {
+    @RequestMapping(value = "/delete")
+    public String removeFromCatalog(@RequestParam(value = "id", defaultValue = "0") Integer banknote_id) {
 
         banknoteService.removeBanknoteFromCatalog(banknote_id);
-        return "forward:/catalog";
+        return "redirect:/catalog";
     }
 
 
-    @RequestMapping(value = "/add", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/add")
     public String addToCatalog(ModelMap modelMap, @ModelAttribute BanknoteDto banknoteDto) {
 
         String title = ((BanknoteDto) modelMap.get("banknoteDto")).getTitle();
@@ -55,7 +53,7 @@ public class CatalogController {
 
         banknoteService.addBanknoteToCatalog(title, nominal, country, link);
 
-        return "forward:/catalog";
+        return "redirect:/catalog";
     }
 
 

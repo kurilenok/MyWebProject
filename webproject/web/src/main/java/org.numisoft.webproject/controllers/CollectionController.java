@@ -5,6 +5,8 @@ import org.numisoft.webproject.pojos.User;
 import org.numisoft.webproject.services.BanknoteService;
 import org.numisoft.webproject.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,14 +28,24 @@ public class CollectionController {
     @Autowired
     BanknoteService banknoteService;
 
+    @Autowired
+    User user;
+
     @RequestMapping("/collection")
-    public String showCollection(ModelMap modelMap, HttpSession httpSession,
+    public String showCollection(ModelMap modelMap,
                                  @RequestParam(value = "page", defaultValue = "1") int page) {
 
-        int user_id = ((User) httpSession.getAttribute("user")).getId();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        user = userService.getUserByName(auth.getName());
+
+        if (user == null) {
+            return "redirect:/login.jsp";
+        }
+
+        int user_id = user.getId();
+
         Set<Banknote> collection = userService.getUserCollection(user_id);
         modelMap.put("collection", collection);
-
         modelMap.put("banknotes", banknoteService.getAllBanknotes(page));
         modelMap.put("currentPage", page);
         modelMap.put("maxPages", banknoteService.calculateMaxPages());
@@ -42,23 +54,23 @@ public class CollectionController {
     }
 
     @RequestMapping("/collect")
-    public String collect(ModelMap modelMap, HttpSession httpSession,
+    public String collect(HttpSession httpSession,
                           @RequestParam(value = "id", defaultValue = "0") int banknote_id) {
 
         int user_id = ((User) httpSession.getAttribute("user")).getId();
         userService.addBanknoteToCollection(user_id, banknote_id);
 
-        return "forward:/collection";
+        return "redirect:/collection";
     }
 
     @RequestMapping("/uncollect")
-    public String uncollect(ModelMap modelMap, HttpSession httpSession,
+    public String uncollect(HttpSession httpSession,
                             @RequestParam(value = "id", defaultValue = "0") int banknote_id) {
 
         int user_id = ((User) httpSession.getAttribute("user")).getId();
         userService.removeBanknoteFromCollection(user_id, banknote_id);
 
-        return "forward:/collection";
+        return "redirect:/collection";
     }
 
 

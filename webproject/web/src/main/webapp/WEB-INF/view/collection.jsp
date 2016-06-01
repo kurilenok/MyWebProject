@@ -67,7 +67,7 @@
             <tr/>
             <c:set var="j" value="${j + 1}" scope="page"/>
             <td/>
-            <c:out value="${j}"/>
+            <c:out value="${10*(requestScope.currentPage - 1) + j}"/>
             <td/>
             <c:out value="${b.getNominal()}"/>&nbsp;<c:out value="${b.getTitle()}"/>
             <td/>
