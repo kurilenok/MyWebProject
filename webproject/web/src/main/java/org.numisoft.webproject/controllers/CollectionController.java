@@ -14,13 +14,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpSession;
 import java.util.Set;
 
 /**
  * Created by kukolka on 26.05.16.
  */
 
+
+/* This Controller is responsible for Collection of Banknotes assign to User */
 @Controller
 public class CollectionController {
 

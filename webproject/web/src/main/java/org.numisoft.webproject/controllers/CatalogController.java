@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * Created by kukolka on 26.05.16.
  */
 
+/* This Controller is responsible to Catalog */
 @Controller
 public class CatalogController {
 
